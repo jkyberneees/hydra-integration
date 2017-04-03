@@ -18,7 +18,7 @@ let WebServerStrategies = {
         return new Promise(async(resolve, reject) => {
             let app = require('express')();
             app.get('/_health', (req, res) => {
-                res.send('OK');
+                res.send(200);
             });
 
             if (config.bootstrap) {
