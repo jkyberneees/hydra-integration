@@ -13,17 +13,17 @@ function getEventName(postfix) {
 let serviceStrategies = {
     express: (factory, config) => {
         return new Promise(async(resolve, reject) => {
-            let app = require('express')();
-            app.get('/_health', (req, res) => {
+            let service = require('express')();
+            service.get('/_health', (req, res) => {
                 res.send(HTTP_OK);
             });
 
             if (config.bootstrap) {
-                await config.bootstrap(app, factory);
+                await config.bootstrap(service, factory);
             }
 
             // registering hydra routes
-            let routes = app._router.stack.filter(stack => stack.route).map(r => r.route);
+            let routes = service._router.stack.filter(stack => stack.route).map(r => r.route);
             let hydraRoutes = [];
             for (let route of routes) {
                 for (let method in route.methods) {
@@ -33,9 +33,9 @@ let serviceStrategies = {
             await hydra.registerRoutes(hydraRoutes);
 
             // starting express server
-            let server = app.listen(config.hydra.servicePort, config.hydra.serviceIP, function (err) {
+            let server = service.listen(config.hydra.servicePort, config.hydra.serviceIP, function (err) {
                 if (err) reject(err);
-                resolve(app);
+                resolve(service);
             });
 
             // registering server.close callback 

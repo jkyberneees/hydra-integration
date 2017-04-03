@@ -20,9 +20,9 @@ describe('Hydra Service Factory', () => {
         });
 
         let info = await factory.init();
-        let app = await factory.getService({
-            bootstrap: (app, factory) => {
-                app.get('/welcome', (req, res) => {
+        await factory.getService({
+            bootstrap: async(service, factory) => {
+                service.get('/welcome', (req, res) => {
                     res.send('Hello World!');
                 });
             }
