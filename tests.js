@@ -1,15 +1,15 @@
-const HydraIntegration = require('./index').HydraIntegration;
+const HydraServiceFactory = require('./index').HydraServiceFactory;
 const expect = require("chai").expect;
 
-describe('Hydra Integration', () => {
-    it('Building express WebServer + Hydra', async() => {
-        const factory = new HydraIntegration({
+describe('Hydra Service Factory', () => {
+    it('Building hydra service + express', async() => {
+        const factory = new HydraServiceFactory({
             hydra: {
                 'serviceName': 'express-service-test',
                 'serviceDescription': 'Basic express service',
                 'serviceIP': '127.0.0.1',
                 'servicePort': 3000,
-                'serviceType': 'test',
+                'serviceType': 'express',
                 'serviceVersion': '1.0.0',
                 'redis': {
                     'url': '127.0.0.1',
@@ -20,8 +20,8 @@ describe('Hydra Integration', () => {
         });
 
         let info = await factory.init();
-        let app = await factory.buildWebServer('express', {
-            bootstrap: (app) => {
+        let app = await factory.getService({
+            bootstrap: (app, factory) => {
                 app.get('/welcome', (req, res) => {
                     res.send('Hello World!');
                 });

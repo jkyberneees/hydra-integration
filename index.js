@@ -4,25 +4,22 @@ const hydra = require('hydra');
 const EventEmitter = require('eventemitter2').EventEmitter2;
 
 const HTTP_OK = 200;
-const HTTP_UNAUTHORIZED = 401;
-const HTTP_NOT_FOUND = 404;
-const HTTP_SERVER_ERROR = 500;
 const HYDRA_EVENT_SUFIX = 'hydra:';
 
 function getEventName(postfix) {
     return HYDRA_EVENT_SUFIX + postfix;
 }
 
-let WebServerStrategies = {
+let serviceStrategies = {
     express: (factory, config) => {
         return new Promise(async(resolve, reject) => {
             let app = require('express')();
             app.get('/_health', (req, res) => {
-                res.send(200);
+                res.send(HTTP_OK);
             });
 
             if (config.bootstrap) {
-                await config.bootstrap(app);
+                await config.bootstrap(app, factory);
             }
 
             // registering hydra routes
@@ -49,7 +46,7 @@ let WebServerStrategies = {
     }
 };
 
-class HydraIntegration extends EventEmitter {
+class HydraServiceFactory extends EventEmitter {
     constructor(config = {}) {
         super({
             wildcard: true,
@@ -79,16 +76,20 @@ class HydraIntegration extends EventEmitter {
         return hydra;
     }
 
-    async buildWebServer(type = 'express', config = {}) {
-        if (WebServerStrategies[type])
-            return await WebServerStrategies[type](this, Object.assign(config, this.config));
+    async getService(config = {}) {
+        if (!this.service) {
+            let type = this.config.hydra.serviceType;
+            if (serviceStrategies[type])
+                this.service = await serviceStrategies[type](this, Object.assign(config, this.config));
+            else throw new Error(`Unsupported service-type: '${type}'`);
+        }
 
-        throw new Error(`Unsupported strategy: '${type}'`);
+        return this.service;
     }
 }
 
 
 module.exports = {
-    HydraIntegration,
-    WebServerStrategies
+    HydraServiceFactory,
+    serviceStrategies
 }
