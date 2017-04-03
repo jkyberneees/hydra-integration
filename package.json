@@ -1,0 +1,39 @@
+{
+  "name": "hydra-integration",
+  "version": "1.0.0",
+  "description": "Hydra integration core module. Intended for Node.js web frameworks integration.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --harmony demos/basic-http.js",
+    "test": "mocha tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkyberneees/hydra-integration.git"
+  },
+  "keywords": [
+    "fwsp-hydra",
+    "hydra",
+    "integration",
+    "rest",
+    "framework"
+  ],
+  "engines": {
+    "node": ">=7.x"
+  },
+  "author": "Rolando Santamaria Maso <kyberneees@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jkyberneees/hydra-integration/issues"
+  },
+  "homepage": "https://github.com/jkyberneees/hydra-integration#readme",
+  "dependencies": {
+    "eventemitter2": "^3.0.2",
+    "hydra": "^1"
+  },
+  "devDependencies": {
+    "chai": "^3",
+    "mocha": "^3",
+    "express": "^4.15.2"
+  }
+}
