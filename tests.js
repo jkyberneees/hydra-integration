@@ -6,7 +6,7 @@ describe('Hydra Service Factory', () => {
         const factory = new HydraServiceFactory({
             hydra: {
                 'serviceName': 'express-service-test',
-                'serviceDescription': 'Basic express service',
+                'serviceDescription': 'Basic express service on top of Hydra',
                 'serviceIP': '127.0.0.1',
                 'servicePort': 3000,
                 'serviceType': 'express',
