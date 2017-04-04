@@ -29,20 +29,18 @@ describe('Hydra Service Factory', () => {
             }
         });
 
-        // test express service API
+        // test express service API directly
         await request(service).get('/_health').expect(200);
-        await request(service).get('/welcome')
-            .then(response => expect(response.text).to.equal('Hello World!'));
+        await request(service).get('/welcome').then(response => expect(response.text).to.equal('Hello World!'));
 
-        // make API call through hydra
+        // test express service API directly through hydra
         let hydra = factory.getHydra();
         let message = hydra.createUMFMessage({
             to: 'express-service-test:[GET]/welcome',
             from: 'website:backend',
             body: {}
         });
-        await hydra.makeAPIRequest(message)
-            .then(response => expect(response.body).to.equal('Hello World!'));
+        await hydra.makeAPIRequest(message).then(response => expect(response.body).to.equal('Hello World!'));
 
         // finally shutdown all including express server
         return factory.shutdown();
