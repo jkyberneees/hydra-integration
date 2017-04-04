@@ -22,9 +22,7 @@ describe('Hydra Service Factory', () => {
         let info = await factory.init();
         await factory.getService({
             bootstrap: async(service, factory) => {
-                service.get('/welcome', (req, res) => {
-                    res.send('Hello World!');
-                });
+                service.get('/welcome', (req, res) => res.send('Hello World!'));
             }
         });
 
