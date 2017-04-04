@@ -32,6 +32,8 @@ factory.on('hydra:registered', async() => {
             }, (err) => (err) ? reject(err) : resolve()));
         }
     });
+
+    console.log(`Service available through hydra as '${factory.config.hydra.serviceName}'`);
 });
 
 factory.init();
