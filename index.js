@@ -14,7 +14,7 @@ let serviceStrategies = {
     express: (factory, config) => {
         return new Promise(async(resolve, reject) => {
             let service = require('express')();
-            service.get('/_health', (req, res) => res.send(HTTP_OK));
+            service.get('/_health', (req, res) => res.sendStatus(HTTP_OK));
 
             if (config.bootstrap) {
                 await config.bootstrap(service, factory);
@@ -28,7 +28,7 @@ let serviceStrategies = {
             }, []));
 
             // starting express server
-            let server = service.listen(config.hydra.servicePort, config.hydra.serviceIP, (err) => err ? reject(err) : resolve());
+            let server = service.listen(config.hydra.servicePort, config.hydra.serviceIP, (err) => err ? reject(err) : resolve(service));
 
             // registering server.close callback 
             factory.on(getEventName('beforeShutdown'), () => server.close());
