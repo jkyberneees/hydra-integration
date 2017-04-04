@@ -1,5 +1,6 @@
 const HydraServiceFactory = require('./index').HydraServiceFactory;
 const expect = require("chai").expect;
+const request = require('supertest');
 
 describe('Hydra Service Factory', () => {
     it('Building hydra service + express', async() => {
@@ -20,11 +21,18 @@ describe('Hydra Service Factory', () => {
         });
 
         let info = await factory.init();
-        await factory.getService({
+        let service = await factory.getService({
             bootstrap: async(service, factory) => {
                 service.get('/welcome', (req, res) => res.send('Hello World!'));
             }
         });
+
+        await request(service)
+            .get('/_health')
+            .expect(200);
+        await request(service)
+            .get('/welcome')
+            .then(response => expect(response.text).to.equal('Hello World!'));
 
         return factory.shutdown();
     });
