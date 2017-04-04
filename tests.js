@@ -94,7 +94,7 @@ describe('Hydra Service Factory', () => {
         });
         await hydra.makeAPIRequest(message).then(response => expect(response.body).to.equal('Hello World!'));
 
-        // finally shutdown all including express server
+        // finally shutdown all including hapi server
         return factory.shutdown();
     });
 });
