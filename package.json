@@ -36,6 +36,8 @@
     "mocha": "^3",
     "express": "^4",
     "supertest": "^3",
-    "hapi": "^16"
+    "hapi": "^16",
+    "koa": "^2",
+    "koa-router": "^7"
   }
 }
