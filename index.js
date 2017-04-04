@@ -11,6 +11,43 @@ function getEventName(postfix) {
 }
 
 let serviceStrategies = {
+    koa: (factory, config) => {
+        return new Promise(async(resolve, reject) => {
+            try {
+                const Koa = require('koa');
+                const service = new Koa();
+                const router = require('koa-router')();
+
+                router.get('/_health', async(ctx) => {
+                    ctx.status = 200;
+                });
+                service.use(router.routes());
+
+                if (config.bootstrap) {
+                    await config.bootstrap(service, factory);
+                }
+
+                // registering hydra routes
+                await hydra.registerRoutes(service.middleware.reduce((arr, m) => {
+                    if (m.router && m.router.stack) {
+                        m.router.stack.forEach(route => {
+                            route.methods.forEach(method => arr.push(`[${method.toUpperCase()}]${route.path}`));
+                        });
+                    }
+
+                    return arr;
+                }, []));
+
+                // starting koa server
+                let server = service.listen(config.hydra.servicePort, config.hydra.serviceIP, (err) => err ? reject(err) : resolve(service));
+
+                // registering server.close callback 
+                factory.on(getEventName('beforeShutdown'), () => server.close());
+            } catch (err) {
+                reject(err);
+            }
+        });
+    },
     express: (factory, config) => {
         return new Promise(async(resolve, reject) => {
             try {
@@ -111,7 +148,8 @@ class HydraServiceFactory extends EventEmitter {
             let type = this.config.hydra.serviceType;
             if (serviceStrategies[type])
                 this.service = await serviceStrategies[type](this, Object.assign(config, this.config));
-            else throw new Error(`Unsupported service-type: '${type}'`);
+            else
+                this.service = await require('hydra-integration-' + type)(this, Object.assign(config, this.config));
         }
 
         return this.service;
