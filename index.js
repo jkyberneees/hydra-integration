@@ -33,6 +33,38 @@ let serviceStrategies = {
             // registering server.close callback 
             factory.on(getEventName('beforeShutdown'), () => server.close());
         });
+    },
+    hapi: (factory, config) => {
+        return new Promise(async(resolve, reject) => {
+            const Hapi = require('hapi');
+            const service = new Hapi.Server(config.hapi || {});
+            service.connection({
+                port: config.hydra.servicePort,
+                host: config.hydra.serviceIP
+            });
+
+            service.route({
+                method: 'GET',
+                path: '/_health',
+                handler: (request, reply) => reply()
+            });
+
+            if (config.bootstrap) {
+                await config.bootstrap(service, factory);
+            }
+
+            // registering hydra routes
+            await hydra.registerRoutes(service.table()[0].table.reduce((arr, route) => {
+                arr.push(`[${route.method.toUpperCase()}]${route.path}`);
+                return arr;
+            }, []));
+
+            // starting express server
+            service.start(err => err ? reject(err) : resolve(service));
+
+            // registering server.close callback 
+            factory.on(getEventName('beforeShutdown'), () => service.stop());
+        });
     }
 };
 
