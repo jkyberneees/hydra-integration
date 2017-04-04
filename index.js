@@ -101,7 +101,7 @@ const WebServerStrategies = {
                     return arr;
                 }, []));
 
-                // starting express server
+                // starting hapi server
                 service.start(err => err ? reject(err) : resolve(service));
 
                 // registering server.close callback 
