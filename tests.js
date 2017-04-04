@@ -22,7 +22,7 @@ describe('Hydra Service Factory', () => {
 
         // initialize the factory
         let info = await factory.init();
-        // build express service
+        // build and get service
         let service = await factory.getService({
             bootstrap: async(service, factory) => {
                 let router = require('express').Router();
@@ -36,7 +36,7 @@ describe('Hydra Service Factory', () => {
         await request(service).get('/_health').expect(200);
         await request(service).get('/v1/welcome').then(response => expect(response.text).to.equal('Hello World!'));
 
-        // test express service API directly through hydra
+        // test express service API through hydra
         let hydra = factory.getHydra();
         let message = hydra.createUMFMessage({
             to: 'express-service-test:[GET]/v1/welcome',
@@ -68,7 +68,7 @@ describe('Hydra Service Factory', () => {
 
         // initialize the factory
         let info = await factory.init();
-        // build express service
+        // build and get service
         let service = await factory.getService({
             bootstrap: async(service, factory) => {
                 service.route({
@@ -81,11 +81,11 @@ describe('Hydra Service Factory', () => {
             }
         });
 
-        // test express service API directly
+        // test hapi service API directly
         await request(service.listener).get('/_health').expect(200);
         await request(service.listener).get('/v1/welcome').then(response => expect(response.text).to.equal('Hello World!'));
 
-        // test express service API directly through hydra
+        // test hapi service API through hydra
         let hydra = factory.getHydra();
         let message = hydra.createUMFMessage({
             to: 'hapi-service-test:[GET]/v1/welcome',
@@ -95,6 +95,54 @@ describe('Hydra Service Factory', () => {
         await hydra.makeAPIRequest(message).then(response => expect(response.body).to.equal('Hello World!'));
 
         // finally shutdown all including hapi server
+        return factory.shutdown();
+    });
+
+    it('Building hydra service + koa', async() => {
+        const factory = new HydraServiceFactory({
+            hydra: {
+                'serviceName': 'koa-service-test',
+                'serviceDescription': 'Basic koa service on top of Hydra',
+                'serviceIP': '127.0.0.1',
+                'servicePort': 3000,
+                'serviceType': 'koa',
+                'serviceVersion': '1.0.0',
+                'redis': {
+                    'url': '127.0.0.1',
+                    'port': 6379,
+                    'db': 15
+                }
+            }
+        });
+
+        // initialize the factory
+        let info = await factory.init();
+        // build and get service
+        let service = await factory.getService({
+            bootstrap: async(service, factory) => {
+                let router = require('koa-router')();
+                router.get('/v1/welcome', async(ctx) => {
+                    ctx.body = 'Hello World!';
+                });
+
+                service.use(router.routes());
+            }
+        });
+
+        // test koa service API directly
+        await request(service.callback()).get('/_health').expect(200);
+        await request(service.callback()).get('/v1/welcome').then(response => expect(response.text).to.equal('Hello World!'));
+
+        // test koa service API through hydra
+        let hydra = factory.getHydra();
+        let message = hydra.createUMFMessage({
+            to: 'koa-service-test:[GET]/v1/welcome',
+            from: 'website:backend',
+            body: {}
+        });
+        await hydra.makeAPIRequest(message).then(response => expect(response.body).to.equal('Hello World!'));
+
+        // finally shutdown all including koa server
         return factory.shutdown();
     });
 });
