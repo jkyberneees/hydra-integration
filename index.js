@@ -10,7 +10,7 @@ function getEventName(postfix) {
     return HYDRA_EVENT_SUFIX + postfix;
 }
 
-let serviceStrategies = {
+const WebServerStrategies = {
     koa: (factory, config) => {
         return new Promise(async(resolve, reject) => {
             try {
@@ -146,8 +146,8 @@ class HydraServiceFactory extends EventEmitter {
     async getService(config = {}) {
         if (!this.service) {
             let type = this.config.hydra.serviceType;
-            if (serviceStrategies[type])
-                this.service = await serviceStrategies[type](this, Object.assign(config, this.config));
+            if (WebServerStrategies[type])
+                this.service = await WebServerStrategies[type](this, Object.assign(config, this.config));
             else
                 this.service = await require('hydra-integration-' + type)(this, Object.assign(config, this.config));
         }
@@ -159,5 +159,5 @@ class HydraServiceFactory extends EventEmitter {
 
 module.exports = {
     HydraServiceFactory,
-    serviceStrategies
+    WebServerStrategies
 }
