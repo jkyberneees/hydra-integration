@@ -14,9 +14,7 @@ let serviceStrategies = {
     express: (factory, config) => {
         return new Promise(async(resolve, reject) => {
             let service = require('express')();
-            service.get('/_health', (req, res) => {
-                res.send(HTTP_OK);
-            });
+            service.get('/_health', (req, res) => res.send(HTTP_OK));
 
             if (config.bootstrap) {
                 await config.bootstrap(service, factory);
@@ -24,24 +22,16 @@ let serviceStrategies = {
 
             // registering hydra routes
             let routes = service._router.stack.filter(stack => stack.route).map(r => r.route);
-            let hydraRoutes = [];
-            for (let route of routes) {
-                for (let method in route.methods) {
-                    hydraRoutes.push(`[${method.toUpperCase()}]${route.path}`);
-                }
-            }
-            await hydra.registerRoutes(hydraRoutes);
+            await hydra.registerRoutes(routes.reduce((arr, route) => {
+                Object.keys(route.methods).forEach(method => arr.push(`[${method.toUpperCase()}]${route.path}`));
+                return arr;
+            }, []));
 
             // starting express server
-            let server = service.listen(config.hydra.servicePort, config.hydra.serviceIP, function (err) {
-                if (err) reject(err);
-                resolve(service);
-            });
+            let server = service.listen(config.hydra.servicePort, config.hydra.serviceIP, (err) => err ? reject(err) : resolve());
 
             // registering server.close callback 
-            factory.on(getEventName('beforeShutdown'), () => {
-                server.close();
-            });
+            factory.on(getEventName('beforeShutdown'), () => server.close());
         });
     }
 };
