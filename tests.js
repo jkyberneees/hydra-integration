@@ -25,18 +25,21 @@ describe('Hydra Service Factory', () => {
         // build express service
         let service = await factory.getService({
             bootstrap: async(service, factory) => {
-                service.get('/welcome', (req, res) => res.send('Hello World!'));
+                let router = require('express').Router();
+                router.get('/welcome', (req, res) => res.send('Hello World!'));
+
+                service.use('/v1', router);
             }
         });
 
         // test express service API directly
         await request(service).get('/_health').expect(200);
-        await request(service).get('/welcome').then(response => expect(response.text).to.equal('Hello World!'));
+        await request(service).get('/v1/welcome').then(response => expect(response.text).to.equal('Hello World!'));
 
         // test express service API directly through hydra
         let hydra = factory.getHydra();
         let message = hydra.createUMFMessage({
-            to: 'express-service-test:[GET]/welcome',
+            to: 'express-service-test:[GET]/v1/welcome',
             from: 'website:backend',
             body: {}
         });
