@@ -111,5 +111,6 @@ hydra-cli rest express-service-test:[GET]/v1/welcome
 - Native Hydra Integration
 - Creating your own integration.
 
-## Complementary Topics
+## Complementary Topics (WIP)
 - [The Hydra Router](https://github.com/flywheelsports/hydra-router/blob/master/README.md)
+- Running your service in multiple processes (processes cluster)
