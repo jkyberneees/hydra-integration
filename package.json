@@ -12,10 +12,9 @@
     "url": "git+https://github.com/jkyberneees/hydra-integration.git"
   },
   "keywords": [
-    "fwsp-hydra",
     "hydra",
     "integration",
-    "rest",
+    "web",
     "framework"
   ],
   "engines": {
@@ -28,16 +27,17 @@
   },
   "homepage": "https://github.com/jkyberneees/hydra-integration#readme",
   "dependencies": {
-    "eventemitter2": "^3.0.2",
-    "hydra": "^1"
+    "eventemitter2": "3.x.x",
+    "express-list-endpoints": "3.x.x",
+    "hydra": "1.x.x"
   },
   "devDependencies": {
-    "chai": "^3",
-    "mocha": "^3",
-    "express": "^4",
-    "supertest": "^3",
-    "hapi": "^16",
-    "koa": "^2",
-    "koa-router": "^7"
+    "chai": "3.x.x",
+    "mocha": "3.x.x",
+    "express": "4.x.x",
+    "supertest": "3.x.x",
+    "hapi": "16.x.x",
+    "koa": "2.x.x",
+    "koa-router": "7.x.x"
   }
 }
