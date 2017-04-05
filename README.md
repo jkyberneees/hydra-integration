@@ -16,7 +16,7 @@ The magic thing with Hydra is that with a minimum setup, your micro-service get 
 By using this module, you will be able to easily integrate your prefered web framework with hydra. Just keep reading...
 
 ## Integrated frameworks
-On the first release the following frameworks are already supported:
+At the moment, the following frameworks are supported:
 1. **Express**: Fast, unopinionated, minimalist web framework for Node.js... (http://expressjs.com/)
 2. **Hapi**: A rich framework for building applications and services, hapi enables developers to focus on writing reusable application logic instead of spending time building infrastructure... (https://hapijs.com/)
 3. **Koa**: Koa is a new web framework designed by the team behind Express, which aims to be a smaller, more expressive, and more robust foundation for web applications and APIs... (http://koajs.com/)
