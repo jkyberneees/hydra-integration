@@ -4,6 +4,8 @@
  */
 
 'use strict';
+const getRoutes = require('express-list-endpoints');
+
 module.exports = (factory, config) => {
     const hydra = factory.getHydra();
 
@@ -17,9 +19,9 @@ module.exports = (factory, config) => {
             }
 
             // registering hydra routes
-            let routes = service._router.stack.filter(stack => stack.route).map(r => r.route);
+            let routes = getRoutes(service);
             await hydra.registerRoutes(routes.reduce((arr, route) => {
-                Object.keys(route.methods).forEach(method => arr.push(`[${method.toUpperCase()}]${route.path}`));
+                route.methods.forEach(method => arr.push(`[${method.toUpperCase()}]${route.path}`));
                 return arr;
             }, []));
 
