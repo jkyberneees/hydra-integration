@@ -4,7 +4,6 @@
   "description": "Hydra integration core module. Intended for Node.js web frameworks integration.",
   "main": "index.js",
   "scripts": {
-    "start": "node --harmony demos/basic-http.js",
     "test": "mocha tests"
   },
   "repository": {
