@@ -25,15 +25,8 @@ factory.on('hydra:registered', async() => {
                     reply('Hello World!');
                 }
             });
-
-            return new Promise((resolve, reject) => service.register({
-                register: require('blipp'),
-                options: {}
-            }, (err) => (err) ? reject(err) : resolve()));
         }
     });
-
-    console.log(`Service available through hydra as '${factory.config.hydra.serviceName}'`);
 });
 
 factory.init();

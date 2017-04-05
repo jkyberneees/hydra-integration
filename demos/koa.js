@@ -26,8 +26,6 @@ factory.on('hydra:registered', async() => {
             service.use(router.routes());
         }
     });
-
-    console.log(`Service available through hydra as '${factory.config.hydra.serviceName}'`);
 });
 
 factory.init();

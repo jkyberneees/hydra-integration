@@ -24,11 +24,6 @@ factory.on('hydra:registered', async() => {
             service.use('/v1', router);
         }
     });
-
-    console.log('http://localhost:' + factory.config.hydra.servicePort);
-    require('express-route-log')(service);
-
-    console.log(`Service available through hydra as '${factory.config.hydra.serviceName}'`);
 });
 
 factory.init();
