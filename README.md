@@ -24,7 +24,7 @@ On the first release the following frameworks are already supported:
 
 ## Getting Started
 Next we will explain you how to create and express based micro-service on top of hydra:
-> IMPORTANT: Hydra stand on Redis database server for storage, cache and messaging. In case you don't have it yet: https://www.hydramicroservice.com/docs/quick-start/step1.html
+> IMPORTANT: Hydra depends on Redis database server for storage, cache and messaging. In case you don't have it yet: https://www.hydramicroservice.com/docs/quick-start/step1.html
 
 1. Install dependencies:
 ```bash
