@@ -1,4 +1,6 @@
 const HydraServiceFactory = require('./../index').HydraServiceFactory;
+const express = require('express');
+
 const factory = new HydraServiceFactory({
     hydra: {
         'serviceName': 'express-service-test',
@@ -18,7 +20,7 @@ const factory = new HydraServiceFactory({
 factory.on('hydra:registered', async() => {
     let service = await factory.getService({
         bootstrap: async(service, factory) => {
-            let router = require('express').Router();
+            let router = express.Router();
             router.get('/welcome', (req, res) => res.send('Hello World!'));
 
             service.use('/v1', router);
