@@ -23,7 +23,8 @@ On the first release the following frameworks are already supported:
 4. **Native Hydra Service**: Hydra services are ideal for making distributed API calls through HTTP or real-time events management... (https://www.hydramicroservice.com/)
 
 ## Getting Started
-Creating an express micro-service on top of hydra:
+Next we will explain you how to create and express based micro-service on top of hydra:
+> IMPORTANT: Hydra stand on Redis database server for storage, cache and messaging. In case you don't have it yet: https://www.hydramicroservice.com/docs/quick-start/step1.html
 
 1. Install dependencies:
 ```bash
@@ -62,9 +63,10 @@ factory.on('hydra:registered', async() => {
     });
 });
 
-factory.init();```
+factory.init();
+```
 3. Run your service: 
-```js
+```bash
 node app.js
 ```
 4. Test your service using a Web browser at: http://localhost:3000/v1/welcome
