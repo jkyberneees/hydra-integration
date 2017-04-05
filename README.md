@@ -103,11 +103,13 @@ hydra-cli rest express-service-test:[GET]/v1/welcome
 ```
 
 ## Next Topics (WIP)
-1. The HydraServiceFactory class.
-2. Express Framework Integration.
-3. Hapi Framework Integration.
-4. Koa Framework Integration.
-5. Creating your own integration.
+- The HydraServiceFactory class.
+- Express Framework Integration.
+- Hapi Framework Integration.
+- Koa Framework Integration.
+- Koa Framework Integration.
+- Native Hydra Integration
+- Creating your own integration.
 
 ## Complementary Topics
-1. [The Hydra Router](https://github.com/flywheelsports/hydra-router/blob/master/README.md)
+- [The Hydra Router](https://github.com/flywheelsports/hydra-router/blob/master/README.md)
