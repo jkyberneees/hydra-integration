@@ -66,8 +66,13 @@ factory.on('hydra:registered', async() => {
 factory.init();
 ```
 3. Run your service: 
+- Single process:
 ```bash
 node app.js
+```
+- Optionally you can run multiple processes with [PM2](http://pm2.keymetrics.io/docs/usage/cluster-mode/):
+```bash
+pm2 start app.js -i 4
 ```
 4. Test your service using a Web browser at: http://localhost:3000/v1/welcome
 5. Test the service using the hydra-cli (https://www.hydramicroservice.com/docs/tools/hydra-cli/getting-started.html):  
@@ -113,4 +118,3 @@ hydra-cli rest express-service-test:[GET]/v1/welcome
 
 ## Complementary Topics (WIP)
 - [The Hydra Router](https://github.com/flywheelsports/hydra-router/blob/master/README.md)
-- Running your service in multiple processes (processes cluster)
