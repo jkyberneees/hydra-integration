@@ -17,13 +17,12 @@ const factory = new HydraServiceFactory({
 
 factory.on('hydra:registered', async() => {
     let service = await factory.getService({
+        hapi: {},
         bootstrap: async(service, factory) => {
             service.route({
                 method: 'GET',
                 path: '/v1/welcome',
-                handler: (request, reply) => {
-                    reply('Hello World!');
-                }
+                handler: (request, reply) => reply('Hello World!')
             });
         }
     });

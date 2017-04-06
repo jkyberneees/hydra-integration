@@ -1,4 +1,6 @@
 const HydraServiceFactory = require('./../index').HydraServiceFactory;
+const router = require('koa-router')();
+
 const factory = new HydraServiceFactory({
     hydra: {
         'serviceName': 'koa-service-test',
@@ -15,17 +17,7 @@ const factory = new HydraServiceFactory({
     }
 });
 
-factory.on('hydra:registered', async() => {
-    let service = await factory.getService({
-        bootstrap: async(service, factory) => {
-            let router = require('koa-router')();
-            router.get('/v1/welcome', async(ctx) => {
-                ctx.body = 'Hello World!';
-            });
-
-            service.use(router.routes());
-        }
-    });
-});
-
-factory.init();
+factory.init().then(factory => factory.getService(service => {
+    router.get('/v1/welcome', async(ctx) => ctx.body = 'Hello World!');
+    service.use(router.routes());
+}));

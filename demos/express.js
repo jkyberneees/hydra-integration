@@ -1,5 +1,6 @@
 const HydraServiceFactory = require('./../index').HydraServiceFactory;
 const express = require('express');
+const router = express.Router();
 
 const factory = new HydraServiceFactory({
     hydra: {
@@ -17,15 +18,7 @@ const factory = new HydraServiceFactory({
     }
 });
 
-factory.on('hydra:registered', async() => {
-    let service = await factory.getService({
-        bootstrap: async(service, factory) => {
-            let router = express.Router();
-            router.get('/welcome', (req, res) => res.send('Hello World!'));
-
-            service.use('/v1', router);
-        }
-    });
-});
-
-factory.init();
+factory.init().then(factory => factory.getService(service => {
+    router.get('/welcome', (req, res) => res.send('Hello World!'));
+    service.use('/v1', router);
+}));

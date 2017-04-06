@@ -35,6 +35,7 @@ npm i hydra-integration express --save
 ```js
 const HydraServiceFactory = require('hydra-integration').HydraServiceFactory;
 const express = require('express');
+const router = express.Router();
 
 const factory = new HydraServiceFactory({
     hydra: {
@@ -52,18 +53,10 @@ const factory = new HydraServiceFactory({
     }
 });
 
-factory.on('hydra:registered', async() => {
-    let service = await factory.getService({
-        bootstrap: async(service, factory) => {
-            let router = express.Router();
-            router.get('/welcome', (req, res) => res.send('Hello World!'));
-
-            service.use('/v1', router);
-        }
-    });
-});
-
-factory.init();
+factory.init().then(factory => factory.getService(service => {
+    router.get('/welcome', (req, res) => res.send('Hello World!'));
+    service.use('/v1', router);
+}));
 ```
 3. Run your service: 
 - Single process:
@@ -107,14 +100,14 @@ hydra-cli rest express-service-test:[GET]/v1/welcome
 }
 ```
 
-## Next Topics (WIP)
-- The HydraServiceFactory class.
-- Express Framework Integration.
-- Hapi Framework Integration.
-- Koa Framework Integration.
-- Koa Framework Integration.
-- Native Hydra Integration
-- Creating your own integration.
+## Next Topics 
+- [The HydraServiceFactory class](docs/HydraServiceFactory.md)
+- [Express Framework Integration](docs/ExpressIntegration.md)
+- [Hapi Framework Integration](docs/HapiIntegration.md)
+- [Koa Framework Integration](docs/KoaIntegration.md)
+- [Native Hydra Integration](docs/NativeIntegration.md)
+- [Creating your own integration](docs/CustomIntegration.md)
+- [Reference documentation](docs/Reference.md)
 
-## Complementary Topics (WIP)
+## Complementary Topics
 - [The Hydra Router](https://github.com/flywheelsports/hydra-router/blob/master/README.md)
