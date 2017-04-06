@@ -2,7 +2,7 @@ const HydraServiceFactory = require('./../index').HydraServiceFactory;
 const factory = new HydraServiceFactory({
     hydra: {
         'serviceName': 'hapi-service-test',
-        'serviceDescription': 'Basic express service on top of Hydra',
+        'serviceDescription': 'Basic hapi service on top of Hydra',
         'serviceIP': '127.0.0.1',
         'servicePort': 3000,
         'serviceType': 'hapi',
