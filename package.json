@@ -42,5 +42,11 @@
     "hapi": "16.x.x",
     "koa": "2.x.x",
     "koa-router": "7.x.x"
-  }
+  },
+  "files": [
+    "LICENSE.md",
+    "README.md",
+    "index.js",
+    "libs/"
+  ]
 }
