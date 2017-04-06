@@ -1,7 +1,7 @@
 {
   "name": "hydra-integration",
-  "version": "1.0.0",
-  "description": "Hydra integration core module. Intended for Node.js web frameworks integration.",
+  "version": "0.1.0",
+  "description": "Minimalistic 'hydra integration' module, intended for Node.js web frameworks integration.",
   "main": "index.js",
   "scripts": {
     "test": "mocha tests"
@@ -14,7 +14,11 @@
     "hydra",
     "integration",
     "web",
-    "framework"
+    "framework",
+    "express",
+    "koa",
+    "hapi",
+    "service"
   ],
   "engines": {
     "node": ">=7.x"
