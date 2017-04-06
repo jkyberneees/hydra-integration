@@ -27,7 +27,7 @@ class HydraServiceFactory extends EventEmitter {
         let info = await hydra.registerService();
         this.emit('hydra:registered', info);
 
-        return info;
+        return this;
     }
 
     shutdown() {
@@ -40,8 +40,13 @@ class HydraServiceFactory extends EventEmitter {
         return hydra;
     }
 
-    async getService(config = {}) {
+    async getService(config) {
+        'function' === typeof (config) ?
+        config = {
+            bootstrap: config
+        }: {};
         config = Object.assign(config, this.config);
+
         if (!this.service) {
             let type = this.config.hydra.serviceType || 'native';
             if (FrameworkStrategies[type])
