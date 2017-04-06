@@ -41,11 +41,11 @@ class HydraServiceFactory extends EventEmitter {
     }
 
     async getService(config) {
-        'function' === typeof (config) ?
-        config = {
-            bootstrap: config
-        }: {};
-        config = Object.assign(config, this.config);
+        if ('function' === typeof (config))
+            config = {
+                bootstrap: config
+            };
+        config = Object.assign(config || {}, this.config);
 
         if (!this.service) {
             let type = this.config.hydra.serviceType || 'native';
