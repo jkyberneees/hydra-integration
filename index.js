@@ -17,7 +17,12 @@ class HydraServiceFactory extends EventEmitter {
             newListener: true
         });
 
-        this.config = config;
+        this.config = Object.assign({
+            server: {
+                bindToServiceIp: false
+            }
+        }, config);
+        console.log(this.config.server.bindToServiceIp);
     }
 
     async init() {
@@ -45,11 +50,7 @@ class HydraServiceFactory extends EventEmitter {
             config = {
                 bootstrap: config
             };
-        config = Object.assign(config || {}, {
-            server: {
-                bindToServiceIp: false
-            }
-        }, this.config);
+        config = Object.assign(this.config, config || {});
 
         if (!this.service) {
             let type = this.config.hydra.serviceType || 'native';
