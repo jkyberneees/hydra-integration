@@ -1,7 +1,7 @@
 # Hydra Integration Module
 Integrating third-party Node.js web frameworks with Hydra, the simplest way.
 
-> Hydra is an NodeJS package, which facilitates building distributed applications such as Microservices. 
+> Hydra is a NodeJS package, which facilitates building distributed applications such as Microservices. 
 > (https://www.hydramicroservice.com/)
 
 The magic thing with Hydra is that with a minimum setup, your micro-service get 'superpowers':
