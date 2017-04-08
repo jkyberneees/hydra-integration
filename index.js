@@ -45,7 +45,11 @@ class HydraServiceFactory extends EventEmitter {
             config = {
                 bootstrap: config
             };
-        config = Object.assign(config || {}, this.config);
+        config = Object.assign(config || {}, {
+            server: {
+                bindToServiceIp: false
+            }
+        }, this.config);
 
         if (!this.service) {
             let type = this.config.hydra.serviceType || 'native';
