@@ -32,7 +32,10 @@ module.exports = (factory, config) => {
             }, []));
 
             // starting koa server
-            let server = service.listen(config.hydra.servicePort, config.hydra.serviceIP, (err) => err ? reject(err) : resolve(service));
+            let server = service.listen(
+                config.hydra.servicePort,
+                (config.server.bindToServiceIp) ? config.hydra.serviceIP : null,
+                (err) => err ? reject(err) : resolve(service));
 
             // registering server.close callback 
             factory.on('hydra:beforeShutdown', () => server.close());
