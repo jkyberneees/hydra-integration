@@ -13,7 +13,7 @@ module.exports = (factory, config) => {
             const service = new Hapi.Server(config.hapi || {});
             service.connection({
                 port: config.hydra.servicePort,
-                host: (config.server.bindToServiceIp) ? config.hydra.serviceIP : null
+                host: (config.server.bindToServiceIP) ? config.hydra.serviceIP : null
             });
 
             service.route({

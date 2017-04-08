@@ -19,7 +19,7 @@ class HydraServiceFactory extends EventEmitter {
 
         this.config = Object.assign({
             server: {
-                bindToServiceIp: false,
+                bindToServiceIP: false,
             }
         }, config);
         this.config.hydra.servicePort = process.env.PORT || this.config.hydra.servicePort;

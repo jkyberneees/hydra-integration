@@ -134,7 +134,7 @@ describe('Hydra Service Factory', () => {
     it('Building hydra service + native', async() => {
         const factory = new HydraServiceFactory({
             server: {
-                bindToServiceIp: true
+                bindToServiceIP: true
             },
             hydra: {
                 'serviceName': 'native-service-test',

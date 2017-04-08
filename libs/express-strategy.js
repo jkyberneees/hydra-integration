@@ -28,7 +28,7 @@ module.exports = (factory, config) => {
             // starting express server
             let server = service.listen(
                 config.hydra.servicePort,
-                (config.server.bindToServiceIp) ? config.hydra.serviceIP : null,
+                (config.server.bindToServiceIP) ? config.hydra.serviceIP : null,
                 (err) => err ? reject(err) : resolve(service));
 
             // registering server.close callback 
