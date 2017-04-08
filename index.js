@@ -7,7 +7,8 @@ const FrameworkStrategies = {
     native: require('./libs/native-strategy'),
     koa: require('./libs/koa-strategy'),
     express: require('./libs/express-strategy'),
-    hapi: require('./libs/hapi-strategy')
+    hapi: require('./libs/hapi-strategy'),
+    meteor: require('./libs/meteor-strategy')
 };
 
 class HydraServiceFactory extends EventEmitter {
@@ -30,6 +31,13 @@ class HydraServiceFactory extends EventEmitter {
         this.emit('hydra:initialized', this.config);
 
         let info = await hydra.registerService();
+        // load strategy
+        let type = this.config.hydra.serviceType || 'native';
+        if (FrameworkStrategies[type])
+            this.strategy = FrameworkStrategies[type](this);
+        else
+            this.strategy = require('hydra-integration-' + type)(this);
+
         this.emit('hydra:registered', info);
 
         return this;
@@ -53,14 +61,15 @@ class HydraServiceFactory extends EventEmitter {
         config = Object.assign(this.config, config || {});
 
         if (!this.service) {
-            let type = this.config.hydra.serviceType || 'native';
-            if (FrameworkStrategies[type])
-                this.service = await FrameworkStrategies[type](this, config);
-            else
-                this.service = await require('hydra-integration-' + type)(this, config);
+            this.service = await this.strategy.build(config);
+            await this.strategy.sync(this.service);
         }
 
         return this.service;
+    }
+
+    async sync(service) {
+        return await this.strategy.sync(service);
     }
 }
 
