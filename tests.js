@@ -13,7 +13,7 @@ describe('Hydra Service Factory', () => {
                 'serviceType': 'express',
                 'serviceVersion': '1.0.0',
                 'redis': {
-                    'url': '127.0.0.1',
+                    'host': '127.0.0.1',
                     'port': 6379,
                     'db': 15
                 }
@@ -54,7 +54,7 @@ describe('Hydra Service Factory', () => {
                 'serviceType': 'hapi',
                 'serviceVersion': '1.0.0',
                 'redis': {
-                    'url': '127.0.0.1',
+                    'host': '127.0.0.1',
                     'port': 6379,
                     'db': 15
                 }
@@ -98,7 +98,7 @@ describe('Hydra Service Factory', () => {
                 'serviceType': 'koa',
                 'serviceVersion': '1.0.0',
                 'redis': {
-                    'url': '127.0.0.1',
+                    'host': '127.0.0.1',
                     'port': 6379,
                     'db': 15
                 }
@@ -144,7 +144,7 @@ describe('Hydra Service Factory', () => {
                 'serviceType': 'native',
                 'serviceVersion': '1.0.0',
                 'redis': {
-                    'url': '127.0.0.1',
+                    'host': '127.0.0.1',
                     'port': 6379,
                     'db': 15
                 }

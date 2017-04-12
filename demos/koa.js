@@ -10,7 +10,7 @@ const factory = new HydraServiceFactory({
         'serviceType': 'koa',
         'serviceVersion': '1.0.0',
         'redis': {
-            'url': '127.0.0.1',
+            'host': '127.0.0.1',
             'port': 6379,
             'db': 15
         }
