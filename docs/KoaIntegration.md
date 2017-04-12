@@ -6,8 +6,8 @@ Integrate koa framework with hydra.
 ```js
 const factory = new HydraServiceFactory({
     hydra: {
-        'serviceName': 'express-service-test',
-        'serviceDescription': 'Basic express service on top of Hydra',
+        'serviceName': 'koa-service-test',
+        'serviceDescription': 'Basic koa service on top of Hydra',
         'serviceIP': '127.0.0.1',
         'servicePort': 3000,
         'serviceType': 'koa',
