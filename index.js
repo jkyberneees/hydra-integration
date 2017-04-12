@@ -8,7 +8,7 @@ const FrameworkStrategies = {
     koa: require('./libs/koa-strategy'),
     express: require('./libs/express-strategy'),
     hapi: require('./libs/hapi-strategy'),
-    meteor: require('./libs/meteor-strategy')
+    // meteor: require('./libs/meteor-strategy') work in progress
 };
 
 class HydraServiceFactory extends EventEmitter {
@@ -28,7 +28,7 @@ class HydraServiceFactory extends EventEmitter {
 
     async init() {
         await hydra.init(this.config);
-        this.emit('hydra:initialized', this.config);
+        this.emit('hydra:initialized', this.config.hydra);
 
         let info = await hydra.registerService();
         // load strategy
@@ -44,9 +44,9 @@ class HydraServiceFactory extends EventEmitter {
     }
 
     shutdown() {
-        this.emit('hydra:beforeShutdown', this);
+        this.emit('hydra:beforeShutdown', this.getHydra());
         hydra.shutdown();
-        this.emit('hydra:afterShutdown', this);
+        this.emit('hydra:afterShutdown', this.getHydra());
     }
 
     getHydra() {
