@@ -100,6 +100,9 @@ hydra-cli rest express-service-test:[GET]/v1/welcome
 }
 ```
 
+## Demos
+Demos available into [demos folder](demos)
+
 ## Next Topics 
 - [The HydraServiceFactory class](docs/HydraServiceFactory.md)
 - [Express Framework Integration](docs/ExpressIntegration.md)
