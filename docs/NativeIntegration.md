@@ -6,8 +6,8 @@ Just create a low level hydra service.
 ```js
 const factory = new HydraServiceFactory({
     hydra: {
-        'serviceName': 'express-service-test',
-        'serviceDescription': 'Basic express service on top of Hydra',
+        'serviceName': 'native-service-test',
+        'serviceDescription': 'Basic native service on top of Hydra',
         'serviceIP': '127.0.0.1',
         'servicePort': 3000,
         'serviceType': 'native',
