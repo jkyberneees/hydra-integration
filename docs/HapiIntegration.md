@@ -2,6 +2,11 @@
 Integrate hapi framework with hydra.
 > Hydra serviceType: hapi
 
+## NPM dependencies
+```bash
+npm i hapi --save
+```
+
 ## Configuration example ##
 ```js
 const factory = new HydraServiceFactory({

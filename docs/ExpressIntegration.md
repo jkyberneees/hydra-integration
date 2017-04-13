@@ -2,6 +2,11 @@
 Integrate express framework with hydra.
 > Hydra serviceType: express
 
+## NPM dependencies
+```bash
+npm i express --save
+```
+
 ## Configuration example ##
 ```js
 const factory = new HydraServiceFactory({

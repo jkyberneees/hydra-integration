@@ -2,6 +2,12 @@
 Integrate Sails(v0.x) framework with hydra.
 > Hydra serviceType: sails0
 
+## NPM dependencies
+Hydra integration with Sails Framework only work by using the embedding method: sync, then you only need to install hydra-integration in your existing sails app:
+```bash
+npm i hydra-integration --save
+```
+
 ## Configuration example
 ```js
 const factory = new HydraServiceFactory({

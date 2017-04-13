@@ -2,6 +2,11 @@
 Integrate koa framework with hydra.
 > Hydra serviceType: koa
 
+## NPM dependencies
+```bash
+npm i koa koa-router --save
+```
+
 ## Configuration example
 ```js
 const factory = new HydraServiceFactory({
