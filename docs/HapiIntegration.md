@@ -23,3 +23,20 @@ const factory = new HydraServiceFactory({
     }
 });
 ```
+
+## Usage
+```js
+const HydraServiceFactory = require('hydra-integration').HydraServiceFactory;
+const factory = new HydraServiceFactory(config);
+
+factory.init().then(factory => factory.getService({
+    hapi: {}, // optionally override hapi config
+    bootstrap: async(service, factory) => {
+        service.route({
+            method: 'GET',
+            path: '/v1/welcome',
+            handler: (request, reply) => reply('Hello World!')
+        });
+    }
+}));
+```

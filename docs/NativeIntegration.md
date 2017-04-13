@@ -21,9 +21,10 @@ const factory = new HydraServiceFactory({
 });
 ```
 
-## Example usage 
+## Usage
 ```js
-// ...
+const HydraServiceFactory = require('hydra-integration').HydraServiceFactory;
+const factory = new HydraServiceFactory(config);
 
 let service = await factory.getService({
     bootstrap: async(hydra, factory) => {

@@ -20,3 +20,14 @@ const factory = new HydraServiceFactory({
     }
 });
 ```
+
+## Usage
+```js
+const HydraServiceFactory = require('hydra-integration').HydraServiceFactory;
+const factory = new HydraServiceFactory(config);
+
+factory.init().then(factory => factory.getService(service => {
+    router.get('/v1/welcome', async(ctx) => ctx.body = 'Hello World!');
+    service.use(router.routes());
+}));
+```

@@ -108,9 +108,10 @@ Demos available into [demos folder](demos)
 - [Express Framework Integration](docs/ExpressIntegration.md)
 - [Hapi Framework Integration](docs/HapiIntegration.md)
 - [Koa Framework Integration](docs/KoaIntegration.md)
+- [Sails(0.x) Framework Integration](docs/Sails0Integration.md)
 - [Native Hydra Integration](docs/NativeIntegration.md)
 - [Creating your own integration](docs/CustomIntegration.md)
-- [Reference documentation](docs/Reference.md)
+- [Reference documentation](https://www.hydramicroservice.com/)
 
 ## Complementary Topics
 - [The Hydra Router](https://github.com/flywheelsports/hydra-router/blob/master/README.md)
