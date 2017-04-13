@@ -1,5 +1,5 @@
 # Koa Integration
-Integrate koa framework with hydra.
+Integrate Koa framework with hydra.
 > Hydra serviceType: koa
 
 ## NPM dependencies
@@ -30,6 +30,7 @@ const factory = new HydraServiceFactory({
 ```js
 const HydraServiceFactory = require('hydra-integration').HydraServiceFactory;
 const factory = new HydraServiceFactory(config);
+const router = require('koa-router')();
 
 factory.init().then(factory => factory.getService(service => {
     router.get('/v1/welcome', async(ctx) => ctx.body = 'Hello World!');
