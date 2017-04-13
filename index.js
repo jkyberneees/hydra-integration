@@ -8,6 +8,7 @@ const FrameworkStrategies = {
     koa: require('./libs/koa-strategy'),
     express: require('./libs/express-strategy'),
     hapi: require('./libs/hapi-strategy'),
+    sails0: require('./libs/sails0-strategy')
     // meteor: require('./libs/meteor-strategy') work in progress
 };
 
@@ -68,8 +69,10 @@ class HydraServiceFactory extends EventEmitter {
         return this.service;
     }
 
-    async sync(service) {
-        return await this.strategy.sync(service);
+    async sync(service, config) {
+        config = Object.assign(this.config, config || {});
+
+        return await this.strategy.sync(service, config);
     }
 }
 
