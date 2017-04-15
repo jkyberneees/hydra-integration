@@ -15,7 +15,7 @@ const factory = new HydraServiceFactory({
         'serviceName': 'sails-service-test',
         'serviceDescription': 'Sails + Hydra embedding example',
         'serviceIP': sails.config.explicitHost || process.env.HOSTNAME || '127.0.0.1',
-        'servicePort': process.env.PORT || 1337,
+        'servicePort': sails.config.port,
         'serviceType': 'sails0',
         'serviceVersion': '1.0.0',
         'redis': {
