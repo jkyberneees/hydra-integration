@@ -8,7 +8,8 @@ const FrameworkStrategies = {
     koa: require('./libs/koa-strategy'),
     express: require('./libs/express-strategy'),
     hapi: require('./libs/hapi-strategy'),
-    sails0: require('./libs/sails0-strategy')
+    sails0: require('./libs/sails0-strategy'),
+    restify: require('./libs/restify-strategy')
     // meteor: require('./libs/meteor-strategy') work in progress
 };
 

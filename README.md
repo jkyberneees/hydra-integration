@@ -20,8 +20,9 @@ At the moment, the following frameworks are supported:
 1. **Express**: Fast, unopinionated, minimalist web framework for Node.js... (http://expressjs.com/)
 2. **Hapi**: A rich framework for building applications and services, hapi enables developers to focus on writing reusable application logic instead of spending time building infrastructure... (https://hapijs.com/)
 3. **Koa**: Koa is a new web framework designed by the team behind Express, which aims to be a smaller, more expressive, and more robust foundation for web applications and APIs... (http://koajs.com/)
-4. **Sails.js**: Sails makes it easy to build custom, enterprise-grade Node.js apps.... (http://sailsjs.com/)
-5. **Native Hydra Service**: Hydra services are ideal for making distributed API calls through HTTP or real-time events management... (https://www.hydramicroservice.com/)
+4. **Sails.js**: Sails makes it easy to build custom, enterprise-grade Node.js apps... (http://sailsjs.com/)
+5. **Restify**: Restify is a node.js module built specifically to enable you to build correct REST web services.... (http://restify.com/)
+6. **Native Hydra Service**: Hydra services are ideal for making distributed API calls through HTTP or real-time events management... (https://www.hydramicroservice.com/)
 
 ## Getting Started
 Next we will explain you how to create and express based micro-service on top of hydra:
@@ -110,6 +111,7 @@ Demos available into [demos folder](demos) on the git repository: https://github
 - [Hapi Framework Integration](docs/HapiIntegration.md)
 - [Koa Framework Integration](docs/KoaIntegration.md)
 - [Sails(0.x) Framework Integration](docs/Sails0Integration.md)
+- [Restify Framework Integration](docs/RestifyIntegration.md)
 - [Native Hydra Integration](docs/NativeIntegration.md)
 - [Creating your own integration](docs/CustomIntegration.md)
 - [Reference documentation](https://www.hydramicroservice.com/)

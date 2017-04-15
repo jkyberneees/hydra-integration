@@ -1,5 +1,5 @@
 # Hapi Integration #
-Integrate hapi framework with hydra.
+Integrate Hapi framework with hydra.
 > Hydra serviceType: hapi
 
 ## NPM dependencies

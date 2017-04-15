@@ -1,6 +1,6 @@
 {
   "name": "hydra-integration",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Minimalistic 'hydra integration' module, intended for Node.js web frameworks integration.",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,9 @@
     "express",
     "koa",
     "hapi",
-    "service"
+    "service",
+    "sails",
+    "restify"
   ],
   "engines": {
     "node": ">=7.x"

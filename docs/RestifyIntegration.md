@@ -1,21 +1,21 @@
-# Express Integration #
-Integrate Express framework with hydra.
-> Hydra serviceType: express
+# Restify Integration #
+Integrate Restify framework with hydra.
+> Hydra serviceType: restify
 
 ## NPM dependencies
 ```bash
-npm i express --save
+npm i restify restify-plugins --save
 ```
 
 ## Configuration example ##
 ```js
 const factory = new HydraServiceFactory({
     hydra: {
-        'serviceName': 'express-service-test',
-        'serviceDescription': 'Basic express service on top of Hydra',
+        'serviceName': 'restify-service-test',
+        'serviceDescription': 'Basic restify service on top of Hydra',
         'serviceIP': '127.0.0.1',
         'servicePort': 3000,
-        'serviceType': 'express',
+        'serviceType': 'restify',
         'serviceVersion': '1.0.0',
         'redis': {
             'host': '127.0.0.1',
@@ -30,11 +30,11 @@ const factory = new HydraServiceFactory({
 ```js
 const HydraServiceFactory = require('hydra-integration').HydraServiceFactory;
 const factory = new HydraServiceFactory(config);
-const express = require('express');
-const router = express.Router();
 
 factory.init().then(factory => factory.getService(service => {
-    router.get('/welcome', (req, res) => res.send('Hello World!'));
-    service.use('/v1', router);
+    service.get('/v1/welcome', (req, res, next) => {
+        res.send(200, 'Hello World!');
+        return next();
+    });
 }));
 ```
