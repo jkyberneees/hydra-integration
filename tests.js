@@ -131,6 +131,52 @@ describe('Hydra Service Factory', () => {
         return factory.shutdown();
     });
 
+    it('Building hydra service + restify', async() => {
+        const factory = new HydraServiceFactory({
+            hydra: {
+                'serviceName': 'restify-service-test',
+                'serviceDescription': 'Basic restify service on top of Hydra',
+                'serviceIP': '127.0.0.1',
+                'servicePort': 3000,
+                'serviceType': 'restify',
+                'serviceVersion': '1.0.0',
+                'redis': {
+                    'host': '127.0.0.1',
+                    'port': 6379,
+                    'db': 15
+                }
+            }
+        });
+
+        let info = await factory.init();
+        let service = await factory.getService({
+            bootstrap: async(service, factory) => {
+                service.get('/v1/welcome', (req, res, next) => {
+                    res.send(200, 'Hello World!');
+                    return next();
+                });
+            }
+        });
+
+        await request(service).get('/_health').expect(200);
+        await request(service).get('/v1/welcome')
+            .set('Accept', 'text/plain').then(response => {
+                expect(response.text).to.equal('Hello World!')
+            });
+
+        let hydra = factory.getHydra();
+        let message = hydra.createUMFMessage({
+            to: 'restify-service-test:[GET]/v1/welcome',
+            from: 'website:backend',
+            body: {}
+        });
+        await hydra.makeAPIRequest(message).then(response => {
+            expect(response.result).to.equal('Hello World!')
+        });
+
+        return factory.shutdown();
+    });
+
     it('Building hydra service + native', async() => {
         const factory = new HydraServiceFactory({
             server: {
