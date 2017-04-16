@@ -1,5 +1,5 @@
 # Native Integration
-Just create a low level hydra service.
+Just create a [low level hydra](https://github.com/flywheelsports/hydra/tree/master/tests/messaging) service.
 > Hydra serviceType: native
 
 ## Configuration example

@@ -1,6 +1,7 @@
 # Restify Integration #
-Integrate Restify framework with hydra.
+Integrate [Restify framework](http://restify.com) with hydra.
 > Hydra serviceType: restify
+
 
 ## NPM dependencies
 ```bash
@@ -10,6 +11,9 @@ npm i restify restify-plugins --save
 ## Configuration example ##
 ```js
 const factory = new HydraServiceFactory({
+    restify: {
+        // optionally pass restify configuration here: http://restify.com/#creating-a-server
+    },
     hydra: {
         'serviceName': 'restify-service-test',
         'serviceDescription': 'Basic restify service on top of Hydra',

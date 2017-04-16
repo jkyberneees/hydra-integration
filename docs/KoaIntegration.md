@@ -1,5 +1,5 @@
 # Koa Integration
-Integrate Koa framework with hydra.
+Integrate [Koa framework](http://koajs.com/) with hydra.
 > Hydra serviceType: koa
 
 ## NPM dependencies

@@ -1,5 +1,5 @@
 # Sails (0.x) Integration
-Integrate Sails(v0.x) framework with hydra.
+Integrate [Sails(v0.x) framework](http://sailsjs.com/) with hydra.
 > Hydra serviceType: sails0
 
 ## NPM dependencies

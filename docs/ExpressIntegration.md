@@ -1,5 +1,5 @@
 # Express Integration #
-Integrate Express framework with hydra.
+Integrate [Express framework](http://expressjs.com/) with hydra.
 > Hydra serviceType: express
 
 ## NPM dependencies
