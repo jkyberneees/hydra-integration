@@ -72,6 +72,9 @@ let factory = new HydraServiceFactory({
 // initialize the factory
 await factory.init();
 
+// optionally you can get the ready to use hydra instance reference
+let hydra = factory.getHydra();
+
 // build the web framework high level service
 await factory.getService(s => {
         // here your express instance
