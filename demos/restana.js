@@ -19,6 +19,5 @@ const factory = new HydraServiceFactory({
 factory.init().then(factory => factory.getService(service => {
     service.get('/v1/welcome', (req, res) => {
         res.send('Hello World!');
-        return next();
     });
 }));

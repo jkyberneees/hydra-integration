@@ -16,8 +16,8 @@ module.exports = (factory) => {
                         await config.bootstrap(service, factory);
                     }
 
-                    await service.start(config.hydra.servicePort,
-                        (config.server.bindToServiceIP) ? config.hydra.serviceIP : null);
+                    service.start(config.hydra.servicePort,
+                        (config.server.bindToServiceIP) ? config.hydra.serviceIP : null).then(() => resolve(service)).catch(reject);
 
                     factory.on('hydra:beforeShutdown', () => service.close());
                 } catch (err) {
