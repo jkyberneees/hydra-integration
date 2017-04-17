@@ -9,7 +9,8 @@ const FrameworkStrategies = {
     express: require('./libs/express-strategy'),
     hapi: require('./libs/hapi-strategy'),
     sails0: require('./libs/sails0-strategy'),
-    restify: require('./libs/restify-strategy')
+    restify: require('./libs/restify-strategy'),
+    restana: require('./libs/restana-strategy')
     // meteor: require('./libs/meteor-strategy') work in progress
 };
 
