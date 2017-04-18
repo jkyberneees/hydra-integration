@@ -24,6 +24,12 @@ factory.on('hydra:registered', async() => {
                 path: '/v1/welcome',
                 handler: (request, reply) => reply('Hello World!')
             });
+
+            service.route({
+                method: 'GET',
+                path: '/echo/{text}',
+                handler: (request, reply) => reply(request.params.text)
+            });
         }
     });
 });

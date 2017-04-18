@@ -38,10 +38,9 @@ module.exports = (factory) => {
         },
         sync: async(service) => {
             // registering hydra routes
-            await hydra.registerRoutes(service.table()[0].table.reduce((arr, route) => {
-                arr.push(`[${route.method.toUpperCase()}]${route.path}`);
-                return arr;
-            }, []));
+            await hydra.registerRoutes(service.table()[0].table
+                .map(route => `[${route.method.toUpperCase()}]${route.path.replace('{', ':').replace('}', '')}`)
+            );
 
             return hydra;
         }
