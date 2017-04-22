@@ -1,6 +1,11 @@
-# The HydraServiceFactory class #
+# The HydraServiceFactory class 
 The 'factory' class act as a service assambler, being responsible for the proper instantiation of the low level hydra service and the target framework strategy *"the service"*.
 Convenient events are triggered so developers can have full control of the process.
+
+## Required Dependencies
+```bash
+npm i hydra hydra-integration --save
+```
 
 ## Config params ##
 The concrete configuration parameters may vary from custom web framework strategy, however the following are generic:

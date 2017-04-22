@@ -31,8 +31,9 @@ Next we will explain you how to create and express based micro-service on top of
 
 1. Install dependencies:
 ```bash
-npm i hydra-integration express --save
+npm i hydra hydra-integration express --save
 ```
+> Express is a dependency here because in the next example we use express, it could be koa or hapi, or any of the supported frameworks.
 
 2. Create and edit app.js file:
 ```js
@@ -108,6 +109,7 @@ Demos available into [demos folder](demos) on the git repository: https://github
 
 ## Next Topics 
 - [The HydraServiceFactory class](docs/HydraServiceFactory.md)
+- [The HydraIntegrationPlugin class](docs/HydraIntegrationPlugin.md)
 - [Express Framework Integration](docs/ExpressIntegration.md)
 - [Hapi Framework Integration](docs/HapiIntegration.md)
 - [Koa Framework Integration](docs/KoaIntegration.md)
