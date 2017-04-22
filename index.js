@@ -1,7 +1,7 @@
 'use strict';
 
-const hydra = require('hydra');
-const EventEmitter = require('eventemitter2').EventEmitter2;
+const EventEmitter = require('events');
+const HydraPlugin = require('hydra/plugin');
 
 const FrameworkStrategies = {
     native: require('./libs/native-strategy'),
@@ -16,10 +16,7 @@ const FrameworkStrategies = {
 
 class HydraServiceFactory extends EventEmitter {
     constructor(config = {}) {
-        super({
-            wildcard: true,
-            newListener: true
-        });
+        super();
 
         this.config = Object.assign({
             server: {
@@ -29,31 +26,33 @@ class HydraServiceFactory extends EventEmitter {
         this.config.hydra.servicePort = process.env.PORT || this.config.hydra.servicePort;
     }
 
-    async init() {
-        await hydra.init(this.config);
-        this.emit('hydra:initialized', this.config.hydra);
+    async init(hydra) {
+        this.hydra = hydra || require('hydra');
 
-        let info = await hydra.registerService();
-        // load strategy
         let type = this.config.hydra.serviceType || 'native';
         if (FrameworkStrategies[type])
             this.strategy = FrameworkStrategies[type](this);
         else
             this.strategy = require('hydra-integration-' + type)(this);
 
-        this.emit('hydra:registered', info);
+        if (!hydra) {
+            await this.hydra.init(this.config);
+            this.emit('hydra:initialized', this.config.hydra);
+            let info = await this.hydra.registerService();
+            this.emit('hydra:registered', info);
+        }
 
         return this;
     }
 
     shutdown() {
         this.emit('hydra:beforeShutdown', this.getHydra());
-        hydra.shutdown();
+        this.hydra.shutdown();
         this.emit('hydra:afterShutdown', this.getHydra());
     }
 
     getHydra() {
-        return hydra;
+        return this.hydra;
     }
 
     async getService(config) {
@@ -79,7 +78,30 @@ class HydraServiceFactory extends EventEmitter {
 }
 
 
+class HydraIntegrationPlugin extends HydraPlugin {
+    constructor() {
+        super('hydra-plugin-integration');
+    }
+
+    setHydra(hydra) {
+        super.setHydra(hydra);
+    }
+
+    setConfig(config) {
+        this.config = {
+            hydra: config
+        };
+    }
+
+    async onServiceReady() {
+        this.factory = new HydraServiceFactory(this.config);
+        this.hydra.integration = this.factory;
+        await this.factory.init(this.hydra);
+    }
+}
+
 module.exports = {
     HydraServiceFactory,
-    FrameworkStrategies
+    FrameworkStrategies,
+    HydraIntegrationPlugin
 }
