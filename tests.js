@@ -1,4 +1,5 @@
 const HydraServiceFactory = require('./index').HydraServiceFactory;
+const HydraIntegrationPlugin = require('./index').HydraIntegrationPlugin;
 const expect = require("chai").expect;
 const request = require('supertest');
 
@@ -31,7 +32,7 @@ describe('Hydra Service Factory', () => {
         });
 
         await request(service).get('/_health').expect(200);
-        await request(service).get('/v1/welcome').then(response => expect(response.text).to.equal('Hello World!'));
+        await request(service).get('/v1/welcome').expect(200).then(response => expect(response.text).to.equal('Hello World!'));
 
         let hydra = factory.getHydra();
         let message = hydra.createUMFMessage({
@@ -39,7 +40,7 @@ describe('Hydra Service Factory', () => {
             from: 'website:backend',
             body: {}
         });
-        await hydra.makeAPIRequest(message).then(response => expect(response.body).to.equal('Hello World!'));
+        await hydra.makeAPIRequest(message).then(response => expect(response.result).to.equal('Hello World!'));
 
         return factory.shutdown();
     });
@@ -83,7 +84,7 @@ describe('Hydra Service Factory', () => {
             from: 'website:backend',
             body: {}
         });
-        await hydra.makeAPIRequest(message).then(response => expect(response.body).to.equal('Hello World!'));
+        await hydra.makeAPIRequest(message).then(response => expect(response.result).to.equal('Hello World!'));
 
         return factory.shutdown();
     });
@@ -126,7 +127,7 @@ describe('Hydra Service Factory', () => {
             from: 'website:backend',
             body: {}
         });
-        await hydra.makeAPIRequest(message).then(response => expect(response.body).to.equal('Hello World!'));
+        await hydra.makeAPIRequest(message).then(response => expect(response.result).to.equal('Hello World!'));
 
         return factory.shutdown();
     });
@@ -204,8 +205,45 @@ describe('Hydra Service Factory', () => {
             }
         });
 
-
-
         return factory.shutdown();
+    });
+
+    it('Hydra plugin + express', async() => {
+        let hydra = require('hydra');
+        hydra.use(new HydraIntegrationPlugin());
+        await hydra.init({
+            hydra: {
+                'serviceName': 'express-service-test',
+                'serviceDescription': 'Basic express service on top of Hydra',
+                'serviceIP': '127.0.0.1',
+                'servicePort': 3000,
+                'serviceType': 'express',
+                'serviceVersion': '1.0.0',
+                'redis': {
+                    'host': '127.0.0.1',
+                    'port': 6379,
+                    'db': 15
+                }
+            }
+        });
+        await hydra.registerService();
+
+        let service = await hydra.integration.getService(service => {
+            let router = require('express').Router();
+            router.get('/welcome', (req, res) => res.send('Hello World!'));
+            service.use('/v1', router);
+        });
+
+        await request(service).get('/_health').expect(200);
+        await request(service).get('/v1/welcome').expect(200).then(response => expect(response.text).to.equal('Hello World!'));
+
+        let message = hydra.createUMFMessage({
+            to: 'express-service-test:[GET]/v1/welcome',
+            from: 'website:backend',
+            body: {}
+        });
+        await hydra.makeAPIRequest(message).then(response => expect(response.result).to.equal('Hello World!'));
+
+        return hydra.integration.shutdown();
     });
 });
