@@ -1,6 +1,6 @@
 {
   "name": "hydra-integration",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Minimalistic 'hydra integration' module, intended for Node.js web frameworks integration.",
   "main": "index.js",
   "scripts": {
@@ -33,11 +33,10 @@
   },
   "homepage": "https://github.com/jkyberneees/hydra-integration#readme",
   "dependencies": {
-    "eventemitter2": "3.x.x",
-    "express-list-endpoints": "3.x.x",
-    "hydra": "1.x.x"
+    "express-list-endpoints": "3.0.0"
   },
   "devDependencies": {
+    "hydra": "1.x.x",
     "chai": "3.x.x",
     "mocha": "3.x.x",
     "express": "4.x.x",
