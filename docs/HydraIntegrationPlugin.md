@@ -38,4 +38,7 @@ hydra.init({
     });
 });
 ```
-
+[Embedding](https://github.com/jkyberneees/hydra-integration/blob/master/docs/HydraServiceFactory.md#embedding) existing apps just works as expected:
+```js
+await hydra.integration.sync(expressApp);
+```
