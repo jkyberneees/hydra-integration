@@ -62,6 +62,8 @@ factory.init().then(factory => factory.getService(service => {
     service.use('/v1', router);
 }));
 ```
+> To use hydra-integration as a plugin see: [The HydraIntegrationPlugin class](https://github.com/jkyberneees/hydra-integration/blob/master/docs/HydraIntegrationPlugin.md)
+
 3. Run your service: 
 - Single process:
 ```bash
