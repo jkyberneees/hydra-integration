@@ -2,8 +2,6 @@
 Integrate [Restana framework](https://github.com/jkyberneees/ana) with hydra.
 > Hydra serviceType: restana
 
-**NOTE**: Restana integration is provided for educational and testing purposes. The restana framework is not recommended for production.
-
 ## NPM dependencies
 ```bash
 npm i restana --save
