@@ -62,6 +62,16 @@ factory.init().then(factory => factory.getService(service => {
     service.use('/v1', router);
 }));
 ```
+Alternative way of getting the service instance by passing config params to the builder (if supported):
+```js
+factory.init().then(factory => factory.getService({
+  // optional config params here to be passed to the building strategy
+  bootstrap: service => {
+    router.get('/welcome', (req, res) => res.send('Hello World!'));
+    service.use('/v1', router);
+  }
+}));
+```
 > To use hydra-integration as a plugin see: [The HydraIntegrationPlugin class](https://github.com/jkyberneees/hydra-integration/blob/master/docs/HydraIntegrationPlugin.md)
 
 3. Run your service: 
