@@ -1,6 +1,6 @@
 {
   "name": "hydra-integration",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Minimalist 'hydra integration' module, intended for Node.js web frameworks integration.",
   "main": "index.js",
   "scripts": {
