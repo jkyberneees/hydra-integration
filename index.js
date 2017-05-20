@@ -66,14 +66,17 @@ class HydraServiceFactory extends EventEmitter {
             this.service = await this.strategy.build(config);
             await this.strategy.sync(this.service);
         }
+        this.emit('service:ready', this.service, this.hydra);
 
         return this.service;
     }
 
     async sync(service, config) {
         config = Object.assign(this.config, config || {});
+        await this.strategy.sync(service, config);
+        this.emit('service:ready', service, this.hydra);
 
-        return await this.strategy.sync(service, config);
+        return res;
     }
 }
 
