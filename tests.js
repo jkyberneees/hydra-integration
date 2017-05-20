@@ -40,7 +40,7 @@ describe('Hydra Service Factory', () => {
             from: 'website:backend',
             body: {}
         });
-        await hydra.makeAPIRequest(message).then(response => expect(response.result).to.equal('Hello World!'));
+        await hydra.makeAPIRequest(message).then(response => expect(response.payLoad.toString()).to.equal('Hello World!'));
 
         return factory.shutdown();
     });
@@ -84,7 +84,7 @@ describe('Hydra Service Factory', () => {
             from: 'website:backend',
             body: {}
         });
-        await hydra.makeAPIRequest(message).then(response => expect(response.result).to.equal('Hello World!'));
+        await hydra.makeAPIRequest(message).then(response => expect(response.payLoad.toString()).to.equal('Hello World!'));
 
         return factory.shutdown();
     });
@@ -127,7 +127,7 @@ describe('Hydra Service Factory', () => {
             from: 'website:backend',
             body: {}
         });
-        await hydra.makeAPIRequest(message).then(response => expect(response.result).to.equal('Hello World!'));
+        await hydra.makeAPIRequest(message).then(response => expect(response.payLoad.toString()).to.equal('Hello World!'));
 
         return factory.shutdown();
     });
@@ -153,6 +153,7 @@ describe('Hydra Service Factory', () => {
         let service = await factory.getService({
             bootstrap: async(service, factory) => {
                 service.get('/v1/welcome', (req, res, next) => {
+                    res.setHeader('content-type', 'text/plain');
                     res.send(200, 'Hello World!');
                     return next();
                 });
@@ -171,9 +172,7 @@ describe('Hydra Service Factory', () => {
             from: 'website:backend',
             body: {}
         });
-        await hydra.makeAPIRequest(message).then(response => {
-            expect(response.result).to.equal('Hello World!')
-        });
+        await hydra.makeAPIRequest(message).then(response => expect(response.payLoad.toString()).to.equal('Hello World!'));
 
         return factory.shutdown();
     });
@@ -242,7 +241,7 @@ describe('Hydra Service Factory', () => {
             from: 'website:backend',
             body: {}
         });
-        await hydra.makeAPIRequest(message).then(response => expect(response.result).to.equal('Hello World!'));
+        await hydra.makeAPIRequest(message).then(response => expect(response.payLoad.toString()).to.equal('Hello World!'));
 
         return hydra.integration.shutdown();
     });
