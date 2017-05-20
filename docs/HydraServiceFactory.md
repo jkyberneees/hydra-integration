@@ -50,6 +50,10 @@ factory.on('hydra:afterShutdown', hydra => {
     // after shutdown the hydra service 
 });
 
+factory.on('service:ready', (service, hydra) => {
+    // after the high level service(API) is ready
+});
+
 factory.init(); // initialize the factory to start the hydra service connection
 ```
 
