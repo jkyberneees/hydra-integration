@@ -1,6 +1,6 @@
 {
   "name": "hydra-integration",
-  "version": "0.7.1",
+  "version": "1.0.0",
   "description": "Minimalist 'hydra integration' module, intended for Node.js web frameworks integration.",
   "main": "index.js",
   "scripts": {
@@ -36,14 +36,22 @@
     "express-list-endpoints": "3.0.0"
   },
   "devDependencies": {
-    "hydra": "1.x.x",
     "chai": "3.x.x",
-    "mocha": "3.x.x",
+    "eslint": "^4.7.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^7.3.0",
     "express": "4.x.x",
-    "supertest": "3.x.x",
     "hapi": "16.x.x",
     "koa": "2.x.x",
-    "koa-router": "7.x.x"
+    "koa-router": "7.x.x",
+    "mocha": "3.x.x",
+    "restify": "6.0.0",
+    "restify-plugins": "1.6.0",
+    "supertest": "3.x.x"
   },
   "files": [
     "LICENSE.md",

@@ -3,34 +3,35 @@
  * (http://sailsjs.com/)
  */
 
-'use strict';
+
 module.exports = (factory) => {
-    const hydra = factory.getHydra();
+  const hydra = factory.getHydra();
 
-    // settings default config for sails
-    factory.config = Object.assign({
-        sails: {
-            methods: ['put', 'get', 'delete', 'head', 'patch', 'post']
+  // settings default config for sails
+  factory.config = Object.assign(
+    {
+      sails: {
+        methods: ['put', 'get', 'delete', 'head', 'patch', 'post'],
+      },
+    },
+    factory.config,
+  );
+
+  return {
+    build: config => Promise.reject('Unsupported operation!'),
+    sync: async (sails, config) => {
+      // registering hydra routes
+      const hydraRoutes = [];
+      config.sails.methods.forEach((method) => {
+        for (const route of sails.hooks.http.app.routes[method]) {
+          const hRoute = `[${method.toUpperCase()}]${route.path}`;
+          if (!hydraRoutes.includes(hRoute)) hydraRoutes.push(hRoute);
         }
-    }, factory.config);
+      });
 
-    return {
-        build: (config) => {
-            return Promise.reject('Unsupported operation!');
-        },
-        sync: async(sails, config) => {
-            // registering hydra routes
-            let hydraRoutes = [];
-            config.sails.methods.forEach((method) => {
-                for (let route of sails.hooks.http.app.routes[method]) {
-                    let hRoute = `[${method.toUpperCase()}]${route.path}`;
-                    if (!hydraRoutes.includes(hRoute)) hydraRoutes.push(hRoute);
-                }
-            });
+      await hydra.registerRoutes(hydraRoutes);
 
-            await hydra.registerRoutes(hydraRoutes);
-
-            return hydra;
-        }
-    }
-}
+      return hydra;
+    },
+  };
+};

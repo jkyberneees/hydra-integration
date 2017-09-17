@@ -2,34 +2,35 @@
  * Hydra Integration Strategy for restana framework
  * (https://github.com/jkyberneees/ana)
  */
-'use strict';
-module.exports = (factory) => {
 
-    return {
-        build: (config) => {
-            return new Promise(async(resolve, reject) => {
-                try {
-                    let service = require('restana')(config.restana || {});
-                    service.get('/_health', (req, res) => res.send(200));
 
-                    if (config.bootstrap) {
-                        await config.bootstrap(service, factory);
-                    }
+module.exports = factory => ({
+  build: config => new Promise(async (resolve, reject) => {
+    try {
+      const service = require('restana')(config.restana || {});
+      service.get('/_health', (req, res) => res.send(200));
 
-                    service.start(config.hydra.servicePort,
-                        (config.server.bindToServiceIP) ? config.hydra.serviceIP : null).then(() => resolve(service)).catch(reject);
+      if (config.bootstrap) {
+        await config.bootstrap(service, factory);
+      }
 
-                    factory.on('hydra:beforeShutdown', () => service.close());
-                } catch (err) {
-                    reject(err);
-                }
-            });
-        },
-        sync: async(service, config) => {
-            const hydra = factory.getHydra();
-            await hydra.registerRoutes(service.routes());
+      service
+        .start(
+          config.hydra.servicePort,
+          config.server.bindToServiceIP ? config.hydra.serviceIP : null,
+        )
+        .then(() => resolve(service))
+        .catch(reject);
 
-            return hydra;
-        }
+      factory.on('hydra:beforeShutdown', () => service.close());
+    } catch (err) {
+      reject(err);
     }
-}
+  }),
+  sync: async (service, config) => {
+    const hydra = factory.getHydra();
+    await hydra.registerRoutes(service.routes());
+
+    return hydra;
+  },
+});

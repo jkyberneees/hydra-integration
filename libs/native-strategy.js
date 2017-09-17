@@ -3,25 +3,19 @@
  * (https://www.hydramicroservice.com)
  */
 
-'use strict';
-module.exports = (factory) => {
-    return {
-        build: (config) => {
-            return new Promise(async(resolve, reject) => {
-                try {
-                    if (config.bootstrap) {
-                        await config.bootstrap(factory.getHydra(), factory);
-                    }
 
-                    resolve(factory.getHydra());
-                } catch (err) {
-                    reject(err);
-                }
-            });
-        },
+module.exports = factory => ({
+  build: config => new Promise(async (resolve, reject) => {
+    try {
+      if (config.bootstrap) {
+        await config.bootstrap(factory.getHydra(), factory);
+      }
 
-        sync: async(service) => {
-            return Promise.resolve(factory.getHydra());
-        }
+      resolve(factory.getHydra());
+    } catch (err) {
+      reject(err);
     }
-}
+  }),
+
+  sync: async service => Promise.resolve(factory.getHydra()),
+});

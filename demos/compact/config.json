@@ -1,15 +1,15 @@
 {
-    "hydra": {
-        "serviceName": "koa-service-test",
-        "serviceDescription": "Basic koa service on top of Hydra",
-        "serviceIP": "127.0.0.1",
-        "servicePort": 3000,
-        "serviceType": "koa",
-        "serviceVersion": "1.0.0",
-        "redis": {
-            "url": "127.0.0.1",
-            "port": 6379,
-            "db": 15
-        }
+  "hydra": {
+    "serviceName": "koa-service-test",
+    "serviceDescription": "Basic koa service on top of Hydra",
+    "serviceIP": "127.0.0.1",
+    "servicePort": 3000,
+    "serviceType": "koa",
+    "serviceVersion": "1.0.0",
+    "redis": {
+      "url": "127.0.0.1",
+      "port": 6379,
+      "db": 15
     }
+  }
 }
