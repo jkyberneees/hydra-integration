@@ -12,7 +12,7 @@ const factory = new HydraServiceFactory({
     serviceName: 'notebook-service',
     serviceDescription: 'Basic express service on top of Hydra',
     serviceIP: '127.0.0.1',
-    servicePort: 0,
+    servicePort: 0, // if value is 0, the port is assigned automatically
     serviceType: 'express',
     serviceVersion: '1.0.0',
     redis: {
