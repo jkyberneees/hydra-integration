@@ -1,4 +1,6 @@
-/* eslint import/no-extraneous-dependencies:0, no-unused-vars:0, no-restricted-syntax:0 */
+/* eslint import/no-extraneous-dependencies:0, no-unused-vars:0, no-restricted-syntax:0,
+global-require: 0 */
+
 const HydraServiceFactory = require('./../../index').HydraServiceFactory;
 const express = require('express');
 const uuid = require('uuid');
@@ -7,21 +9,7 @@ const notes = require('./controller');
 
 const router = express.Router();
 
-const factory = new HydraServiceFactory({
-  hydra: {
-    serviceName: 'notebook-service',
-    serviceDescription: 'Basic express service on top of Hydra',
-    serviceIP: '127.0.0.1',
-    servicePort: 0, // if value is 0, the port is assigned automatically
-    serviceType: 'express',
-    serviceVersion: '1.0.0',
-    redis: {
-      host: '127.0.0.1',
-      port: 6379,
-      db: 15,
-    },
-  },
-});
+const factory = new HydraServiceFactory(require('./config'));
 
 factory.init().then(() =>
   factory.getService((service) => {

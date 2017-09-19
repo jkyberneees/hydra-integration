@@ -1,0 +1,15 @@
+{
+  "hydra": {
+    "serviceName": "notebook-service",
+    "serviceDescription": "Basic express service on top of Hydra",
+    "serviceIP": "127.0.0.1",
+    "servicePort": 0,
+    "serviceType": "express",
+    "serviceVersion": "1.0.0",
+    "redis": {
+      "host": "127.0.0.1",
+      "port": 6379,
+      "db": 15
+    }
+  }
+}
