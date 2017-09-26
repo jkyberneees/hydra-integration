@@ -1,7 +1,8 @@
 {
   "name": "hydra-integration",
-  "version": "1.0.0",
-  "description": "Minimalist 'hydra integration' module, intended for Node.js web frameworks integration.",
+  "version": "1.0.1",
+  "description":
+    "Minimalist 'hydra integration' module, intended for Node.js web frameworks integration.",
   "main": "index.js",
   "scripts": {
     "test": "mocha tests"
@@ -53,10 +54,5 @@
     "restify-plugins": "1.6.0",
     "supertest": "3.x.x"
   },
-  "files": [
-    "LICENSE.md",
-    "README.md",
-    "index.js",
-    "libs/"
-  ]
+  "files": ["LICENSE.md", "README.md", "index.js", "libs/"]
 }

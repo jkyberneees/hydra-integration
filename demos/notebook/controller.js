@@ -5,8 +5,8 @@ const uuid = require('uuid');
 const storage = [
   {
     id: uuid.v1(),
-    content: 'Hello World!',
-  },
+    content: 'Hello World!'
+  }
 ];
 const notes = {
   list(req, res) {
@@ -45,7 +45,7 @@ const notes = {
     storage.push(note);
 
     return res.status(200).end();
-  },
+  }
 };
 
 module.exports = notes;

@@ -1,5 +1,5 @@
 /* eslint import/no-extraneous-dependencies:0, global-require:0, 
-import/no-dynamic-require:0, no-param-reassign:0 */
+import/no-dynamic-require:0, no-param-reassign:0,  */
 
 const EventEmitter = require('events');
 const HydraPlugin = require('hydra/plugin');
@@ -11,7 +11,7 @@ const FrameworkStrategies = {
   hapi: require('./libs/hapi-strategy'),
   sails0: require('./libs/sails0-strategy'),
   restify: require('./libs/restify-strategy'),
-  restana: require('./libs/restana-strategy'),
+  restana: require('./libs/restana-strategy')
   // meteor: require('./libs/meteor-strategy') work in progress
 };
 
@@ -22,10 +22,10 @@ class HydraServiceFactory extends EventEmitter {
     this.config = Object.assign(
       {
         server: {
-          bindToServiceIP: false,
-        },
+          bindToServiceIP: false
+        }
       },
-      config,
+      config
     );
     this.config.hydra.servicePort = process.env.PORT || this.config.hydra.servicePort;
   }
@@ -60,7 +60,7 @@ class HydraServiceFactory extends EventEmitter {
   async getService(config) {
     if (typeof config === 'function') {
       config = {
-        bootstrap: config,
+        bootstrap: config
       };
     }
     config = Object.assign(this.config, config || {});
@@ -95,7 +95,7 @@ class HydraIntegrationPlugin extends HydraPlugin {
   setConfig(hConfig) {
     super.setConfig(hConfig);
     this.config = {
-      hydra: hConfig,
+      hydra: hConfig
     };
     this.configChanged(this.opts);
   }
@@ -114,5 +114,5 @@ class HydraIntegrationPlugin extends HydraPlugin {
 module.exports = {
   HydraServiceFactory,
   FrameworkStrategies,
-  HydraIntegrationPlugin,
+  HydraIntegrationPlugin
 };

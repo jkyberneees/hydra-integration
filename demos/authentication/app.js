@@ -38,9 +38,9 @@ const factory = new HydraServiceFactory({
     redis: {
       host: '127.0.0.1',
       port: 6379,
-      db: 15,
-    },
-  },
+      db: 15
+    }
+  }
 });
 
 // sync express

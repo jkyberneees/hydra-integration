@@ -11,9 +11,9 @@ const factory = new HydraServiceFactory({
     redis: {
       host: '127.0.0.1',
       port: 6379,
-      db: 15,
-    },
-  },
+      db: 15
+    }
+  }
 });
 
 factory.init().then(() =>
@@ -21,5 +21,5 @@ factory.init().then(() =>
     service.get('/v1/welcome', (req, res) => {
       res.send('Hello World!');
     });
-  }),
+  })
 );

@@ -23,5 +23,5 @@ factory.init().then(() =>
     router.post('/notes', notes.create);
 
     service.use('/v1', router);
-  }),
+  })
 );

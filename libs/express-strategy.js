@@ -5,44 +5,40 @@
 
 const getRoutes = require('express-list-endpoints');
 
-module.exports = (factory) => {
-  const hydra = factory.getHydra();
+module.exports = factory => ({
+  build: config =>
+    new Promise(async (resolve, reject) => {
+      try {
+        const service = require('express')();
+        service.get('/_health', (req, res) => res.sendStatus(200));
 
-  return {
-    build: config =>
-      new Promise(async (resolve, reject) => {
-        try {
-          const service = require('express')();
-          service.get('/_health', (req, res) => res.sendStatus(200));
-
-          if (config.bootstrap) {
-            await config.bootstrap(service, factory);
-          }
-
-          const server = service.listen(
-            config.hydra.servicePort,
-            config.server.bindToServiceIP ? config.hydra.serviceIP : null,
-            err => (err ? reject(err) : resolve(service)),
-          );
-
-          factory.on('hydra:beforeShutdown', () => server.close());
-        } catch (err) {
-          reject(err);
+        if (config.bootstrap) {
+          await config.bootstrap(service, factory);
         }
-      }),
 
-    sync: async (service) => {
-      const hydra = factory.getHydra();
+        const server = service.listen(
+          config.hydra.servicePort,
+          config.server.bindToServiceIP ? config.hydra.serviceIP : null,
+          err => (err ? reject(err) : resolve(service))
+        );
 
-      const routes = getRoutes(service);
-      await hydra.registerRoutes(
-        routes.reduce((arr, route) => {
-          route.methods.forEach(method => arr.push(`[${method.toUpperCase()}]${route.path}`));
-          return arr;
-        }, []),
-      );
+        factory.on('hydra:beforeShutdown', () => server.close());
+      } catch (err) {
+        reject(err);
+      }
+    }),
 
-      return hydra;
-    },
-  };
-};
+  sync: async (service) => {
+    const hydra = factory.getHydra();
+
+    const routes = getRoutes(service);
+    await hydra.registerRoutes(
+      routes.reduce((arr, route) => {
+        route.methods.forEach(method => arr.push(`[${method.toUpperCase()}]${route.path}`));
+        return arr;
+      }, [])
+    );
+
+    return hydra;
+  }
+});

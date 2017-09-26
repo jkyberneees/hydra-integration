@@ -8,5 +8,5 @@ new HydraServiceFactory(config).init().then(factory =>
   factory.getService((service) => {
     router.get('/v1/welcome', ctx => (ctx.body = 'Hello World!'));
     service.use(router.routes());
-  }),
+  })
 );

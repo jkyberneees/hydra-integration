@@ -3,7 +3,6 @@
  * (https://www.meteor.com/)
  */
 
-
 module.exports = factory =>
   // TODO: Support major routers for Meteor:
   // - Iron Router
@@ -11,6 +10,5 @@ module.exports = factory =>
   // - Flow Router
   ({
     build: config => Promise.reject('Unsupported operation!'),
-    sync: async () => Promise.reject('Unsupported operation!'),
-  })
-;
+    sync: async service => Promise.reject('Unsupported operation!')
+  });

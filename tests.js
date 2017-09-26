@@ -19,9 +19,9 @@ describe('Hydra Service Factory', () => {
         redis: {
           host: '127.0.0.1',
           port: 6379,
-          db: 15,
-        },
-      },
+          db: 15
+        }
+      }
     });
 
     const info = await factory.init();
@@ -31,7 +31,7 @@ describe('Hydra Service Factory', () => {
         router.get('/welcome', (req, res) => res.send('Hello World!'));
 
         service.use('/v1', router);
-      },
+      }
     });
 
     await request(service)
@@ -46,7 +46,7 @@ describe('Hydra Service Factory', () => {
     const message = hydra.createUMFMessage({
       to: 'express-service-test:[GET]/v1/welcome',
       from: 'website:backend',
-      body: {},
+      body: {}
     });
     await hydra
       .makeAPIRequest(message)
@@ -67,9 +67,9 @@ describe('Hydra Service Factory', () => {
         redis: {
           host: '127.0.0.1',
           port: 6379,
-          db: 15,
-        },
-      },
+          db: 15
+        }
+      }
     });
 
     const info = await factory.init();
@@ -80,9 +80,9 @@ describe('Hydra Service Factory', () => {
           path: '/v1/welcome',
           handler: (request, reply) => {
             reply('Hello World!');
-          },
+          }
         });
-      },
+      }
     });
 
     await request(service.listener)
@@ -96,7 +96,7 @@ describe('Hydra Service Factory', () => {
     const message = hydra.createUMFMessage({
       to: 'hapi-service-test:[GET]/v1/welcome',
       from: 'website:backend',
-      body: {},
+      body: {}
     });
     await hydra
       .makeAPIRequest(message)
@@ -117,9 +117,9 @@ describe('Hydra Service Factory', () => {
         redis: {
           host: '127.0.0.1',
           port: 6379,
-          db: 15,
-        },
-      },
+          db: 15
+        }
+      }
     });
 
     const info = await factory.init();
@@ -131,7 +131,7 @@ describe('Hydra Service Factory', () => {
         });
 
         service.use(router.routes());
-      },
+      }
     });
 
     await request(service.callback())
@@ -145,7 +145,7 @@ describe('Hydra Service Factory', () => {
     const message = hydra.createUMFMessage({
       to: 'koa-service-test:[GET]/v1/welcome',
       from: 'website:backend',
-      body: {},
+      body: {}
     });
     await hydra
       .makeAPIRequest(message)
@@ -166,9 +166,9 @@ describe('Hydra Service Factory', () => {
         redis: {
           host: '127.0.0.1',
           port: 6379,
-          db: 15,
-        },
-      },
+          db: 15
+        }
+      }
     });
 
     const info = await factory.init();
@@ -179,7 +179,7 @@ describe('Hydra Service Factory', () => {
           res.send(200, 'Hello World!');
           return next();
         });
-      },
+      }
     });
 
     await request(service)
@@ -196,7 +196,7 @@ describe('Hydra Service Factory', () => {
     const message = hydra.createUMFMessage({
       to: 'restify-service-test:[GET]/v1/welcome',
       from: 'website:backend',
-      body: {},
+      body: {}
     });
     await hydra
       .makeAPIRequest(message)
@@ -208,7 +208,7 @@ describe('Hydra Service Factory', () => {
   it('Building hydra service + native', async () => {
     const factory = new HydraServiceFactory({
       server: {
-        bindToServiceIP: true,
+        bindToServiceIP: true
       },
       hydra: {
         serviceName: 'native-service-test',
@@ -220,16 +220,16 @@ describe('Hydra Service Factory', () => {
         redis: {
           host: '127.0.0.1',
           port: 6379,
-          db: 15,
-        },
-      },
+          db: 15
+        }
+      }
     });
 
     const info = await factory.init();
     const service = await factory.getService({
       bootstrap: async (hydra, factory) => {
         expect(hydra.getServiceName()).to.equal(factory.config.hydra.serviceName);
-      },
+      }
     });
 
     return factory.shutdown();
@@ -249,9 +249,9 @@ describe('Hydra Service Factory', () => {
         redis: {
           host: '127.0.0.1',
           port: 6379,
-          db: 15,
-        },
-      },
+          db: 15
+        }
+      }
     });
     await hydra.registerService();
 
@@ -272,7 +272,7 @@ describe('Hydra Service Factory', () => {
     const message = hydra.createUMFMessage({
       to: 'express-service-test:[GET]/v1/welcome',
       from: 'website:backend',
-      body: {},
+      body: {}
     });
     await hydra
       .makeAPIRequest(message)

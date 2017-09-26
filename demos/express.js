@@ -16,14 +16,14 @@ const factory = new HydraServiceFactory({
     redis: {
       host: '127.0.0.1',
       port: 6379,
-      db: 15,
-    },
-  },
+      db: 15
+    }
+  }
 });
 
 factory.init().then(() =>
   factory.getService((service) => {
     router.get('/welcome', (req, res) => res.send('Hello World!'));
     service.use('/v1', router);
-  }),
+  })
 );

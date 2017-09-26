@@ -3,7 +3,6 @@
  * (http://sailsjs.com/)
  */
 
-
 module.exports = (factory) => {
   const hydra = factory.getHydra();
 
@@ -11,14 +10,14 @@ module.exports = (factory) => {
   factory.config = Object.assign(
     {
       sails: {
-        methods: ['put', 'get', 'delete', 'head', 'patch', 'post'],
-      },
+        methods: ['put', 'get', 'delete', 'head', 'patch', 'post']
+      }
     },
-    factory.config,
+    factory.config
   );
 
   return {
-    build: config => Promise.reject('Unsupported operation!'),
+    build: () => Promise.reject('Unsupported operation!'),
     sync: async (sails, config) => {
       // registering hydra routes
       const hydraRoutes = [];
@@ -32,6 +31,6 @@ module.exports = (factory) => {
       await hydra.registerRoutes(hydraRoutes);
 
       return hydra;
-    },
+    }
   };
 };
