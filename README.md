@@ -1,4 +1,7 @@
 # Hydra Integration Module
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/jkyberneees/hydra-integration.svg)](https://greenkeeper.io/)
+
 Integrating third-party Node.js web frameworks with Hydra, the simplest way.
 
 > Hydra is a NodeJS package, which facilitates building distributed applications such as Microservices. 
