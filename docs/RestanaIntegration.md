@@ -11,7 +11,8 @@ npm i restana --save
 ```js
 const factory = new HydraServiceFactory({
     restana: {
-        // optionally pass restify configuration here
+        // optionally pass restana configuration here
+        // https://www.npmjs.com/package/restana#configuration
     },
     hydra: {
         'serviceName': 'restana-service-test',
