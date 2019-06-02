@@ -1,10 +1,10 @@
 /* eslint import/no-extraneous-dependencies:0, no-unused-vars:0, no-undef:0,
 global-require:0, no-shadow:0 */
 
-const HydraServiceFactory = require('./index').HydraServiceFactory;
-const HydraIntegrationPlugin = require('./index').HydraIntegrationPlugin;
-const expect = require('chai').expect;
-const request = require('supertest');
+const HydraServiceFactory = require('./index').HydraServiceFactory
+const HydraIntegrationPlugin = require('./index').HydraIntegrationPlugin
+const expect = require('chai').expect
+const request = require('supertest')
 
 describe('Hydra Service Factory', () => {
   it('Building hydra service + express', async () => {
@@ -22,38 +22,38 @@ describe('Hydra Service Factory', () => {
           db: 15
         }
       }
-    });
+    })
 
-    const info = await factory.init();
+    const info = await factory.init()
     const service = await factory.getService({
       bootstrap: async (service, factory) => {
-        const router = require('express').Router();
-        router.get('/welcome', (req, res) => res.send('Hello World!'));
+        const router = require('express').Router()
+        router.get('/welcome', (req, res) => res.send('Hello World!'))
 
-        service.use('/v1', router);
+        service.use('/v1', router)
       }
-    });
+    })
 
     await request(service)
       .get('/_health')
-      .expect(200);
+      .expect(200)
     await request(service)
       .get('/v1/welcome')
       .expect(200)
-      .then(response => expect(response.text).to.equal('Hello World!'));
+      .then(response => expect(response.text).to.equal('Hello World!'))
 
-    const hydra = factory.getHydra();
+    const hydra = factory.getHydra()
     const message = hydra.createUMFMessage({
       to: 'express-service-test:[GET]/v1/welcome',
       from: 'website:backend',
       body: {}
-    });
+    })
     await hydra
       .makeAPIRequest(message)
-      .then(response => expect(response.payLoad.toString()).to.equal('Hello World!'));
+      .then(response => expect(response.payLoad.toString()).to.equal('Hello World!'))
 
-    return factory.shutdown();
-  });
+    return factory.shutdown()
+  })
 
   it('Building hydra service + hapi', async () => {
     const factory = new HydraServiceFactory({
@@ -70,40 +70,40 @@ describe('Hydra Service Factory', () => {
           db: 15
         }
       }
-    });
+    })
 
-    const info = await factory.init();
+    const info = await factory.init()
     const service = await factory.getService({
       bootstrap: async (service, factory) => {
         service.route({
           method: 'GET',
           path: '/v1/welcome',
           handler: (request, reply) => {
-            reply('Hello World!');
+            reply('Hello World!')
           }
-        });
+        })
       }
-    });
+    })
 
     await request(service.listener)
       .get('/_health')
-      .expect(200);
+      .expect(200)
     await request(service.listener)
       .get('/v1/welcome')
-      .then(response => expect(response.text).to.equal('Hello World!'));
+      .then(response => expect(response.text).to.equal('Hello World!'))
 
-    const hydra = factory.getHydra();
+    const hydra = factory.getHydra()
     const message = hydra.createUMFMessage({
       to: 'hapi-service-test:[GET]/v1/welcome',
       from: 'website:backend',
       body: {}
-    });
+    })
     await hydra
       .makeAPIRequest(message)
-      .then(response => expect(response.payLoad.toString()).to.equal('Hello World!'));
+      .then(response => expect(response.payLoad.toString()).to.equal('Hello World!'))
 
-    return factory.shutdown();
-  });
+    return factory.shutdown()
+  })
 
   it('Building hydra service + koa', async () => {
     const factory = new HydraServiceFactory({
@@ -120,39 +120,39 @@ describe('Hydra Service Factory', () => {
           db: 15
         }
       }
-    });
+    })
 
-    const info = await factory.init();
+    const info = await factory.init()
     const service = await factory.getService({
       bootstrap: async (service, factory) => {
-        const router = require('koa-router')();
+        const router = require('koa-router')()
         router.get('/v1/welcome', async (ctx) => {
-          ctx.body = 'Hello World!';
-        });
+          ctx.body = 'Hello World!'
+        })
 
-        service.use(router.routes());
+        service.use(router.routes())
       }
-    });
+    })
 
     await request(service.callback())
       .get('/_health')
-      .expect(200);
+      .expect(200)
     await request(service.callback())
       .get('/v1/welcome')
-      .then(response => expect(response.text).to.equal('Hello World!'));
+      .then(response => expect(response.text).to.equal('Hello World!'))
 
-    const hydra = factory.getHydra();
+    const hydra = factory.getHydra()
     const message = hydra.createUMFMessage({
       to: 'koa-service-test:[GET]/v1/welcome',
       from: 'website:backend',
       body: {}
-    });
+    })
     await hydra
       .makeAPIRequest(message)
-      .then(response => expect(response.payLoad.toString()).to.equal('Hello World!'));
+      .then(response => expect(response.payLoad.toString()).to.equal('Hello World!'))
 
-    return factory.shutdown();
-  });
+    return factory.shutdown()
+  })
 
   it('Building hydra service + restify', async () => {
     const factory = new HydraServiceFactory({
@@ -169,41 +169,41 @@ describe('Hydra Service Factory', () => {
           db: 15
         }
       }
-    });
+    })
 
-    const info = await factory.init();
+    const info = await factory.init()
     const service = await factory.getService({
       bootstrap: async (service, factory) => {
         service.get('/v1/welcome', (req, res, next) => {
-          res.setHeader('content-type', 'text/plain');
-          res.send(200, 'Hello World!');
-          return next();
-        });
+          res.setHeader('content-type', 'text/plain')
+          res.send(200, 'Hello World!')
+          return next()
+        })
       }
-    });
+    })
 
     await request(service)
       .get('/_health')
-      .expect(200);
+      .expect(200)
     await request(service)
       .get('/v1/welcome')
       .set('Accept', 'text/plain')
       .then((response) => {
-        expect(response.text).to.equal('Hello World!');
-      });
+        expect(response.text).to.equal('Hello World!')
+      })
 
-    const hydra = factory.getHydra();
+    const hydra = factory.getHydra()
     const message = hydra.createUMFMessage({
       to: 'restify-service-test:[GET]/v1/welcome',
       from: 'website:backend',
       body: {}
-    });
+    })
     await hydra
       .makeAPIRequest(message)
-      .then(response => expect(response.payLoad.toString()).to.equal('Hello World!'));
+      .then(response => expect(response.payLoad.toString()).to.equal('Hello World!'))
 
-    return factory.shutdown();
-  });
+    return factory.shutdown()
+  })
 
   it('Building hydra service + native', async () => {
     const factory = new HydraServiceFactory({
@@ -223,21 +223,21 @@ describe('Hydra Service Factory', () => {
           db: 15
         }
       }
-    });
+    })
 
-    const info = await factory.init();
+    const info = await factory.init()
     const service = await factory.getService({
       bootstrap: async (hydra, factory) => {
-        expect(hydra.getServiceName()).to.equal(factory.config.hydra.serviceName);
+        expect(hydra.getServiceName()).to.equal(factory.config.hydra.serviceName)
       }
-    });
+    })
 
-    return factory.shutdown();
-  });
+    return factory.shutdown()
+  })
 
   it('Hydra plugin + express', async () => {
-    const hydra = require('hydra');
-    hydra.use(new HydraIntegrationPlugin());
+    const hydra = require('hydra')
+    hydra.use(new HydraIntegrationPlugin())
     await hydra.init({
       hydra: {
         serviceName: 'express-service-test',
@@ -252,32 +252,32 @@ describe('Hydra Service Factory', () => {
           db: 15
         }
       }
-    });
-    await hydra.registerService();
+    })
+    await hydra.registerService()
 
     const service = await hydra.integration.getService((service) => {
-      const router = require('express').Router();
-      router.get('/welcome', (req, res) => res.send('Hello World!'));
-      service.use('/v1', router);
-    });
+      const router = require('express').Router()
+      router.get('/welcome', (req, res) => res.send('Hello World!'))
+      service.use('/v1', router)
+    })
 
     await request(service)
       .get('/_health')
-      .expect(200);
+      .expect(200)
     await request(service)
       .get('/v1/welcome')
       .expect(200)
-      .then(response => expect(response.text).to.equal('Hello World!'));
+      .then(response => expect(response.text).to.equal('Hello World!'))
 
     const message = hydra.createUMFMessage({
       to: 'express-service-test:[GET]/v1/welcome',
       from: 'website:backend',
       body: {}
-    });
+    })
     await hydra
       .makeAPIRequest(message)
-      .then(response => expect(response.payLoad.toString()).to.equal('Hello World!'));
+      .then(response => expect(response.payLoad.toString()).to.equal('Hello World!'))
 
-    return hydra.integration.shutdown();
-  });
-});
+    return hydra.integration.shutdown()
+  })
+})

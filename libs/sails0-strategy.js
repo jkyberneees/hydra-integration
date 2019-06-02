@@ -1,10 +1,10 @@
 /**
- * Hydra Integration Strategy for Sails.js Framework 
+ * Hydra Integration Strategy for Sails.js Framework
  * (http://sailsjs.com/)
  */
 
 module.exports = (factory) => {
-  const hydra = factory.getHydra();
+  const hydra = factory.getHydra()
 
   // settings default config for sails
   factory.config = Object.assign(
@@ -14,23 +14,23 @@ module.exports = (factory) => {
       }
     },
     factory.config
-  );
+  )
 
   return {
-    build: () => Promise.reject('Unsupported operation!'),
+    build: () => Promise.reject(new Error('Unsupported operation!')),
     sync: async (sails, config) => {
       // registering hydra routes
-      const hydraRoutes = [];
+      const hydraRoutes = []
       config.sails.methods.forEach((method) => {
         for (const route of sails.hooks.http.app.routes[method]) {
-          const hRoute = `[${method.toUpperCase()}]${route.path}`;
-          if (!hydraRoutes.includes(hRoute)) hydraRoutes.push(hRoute);
+          const hRoute = `[${method.toUpperCase()}]${route.path}`
+          if (!hydraRoutes.includes(hRoute)) hydraRoutes.push(hRoute)
         }
-      });
+      })
 
-      await hydra.registerRoutes(hydraRoutes);
+      await hydra.registerRoutes(hydraRoutes)
 
-      return hydra;
+      return hydra
     }
-  };
-};
+  }
+}

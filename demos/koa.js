@@ -1,7 +1,7 @@
 /* eslint import/no-extraneous-dependencies:0, no-return-assign:0 */
 
-const HydraServiceFactory = require('./../index').HydraServiceFactory;
-const router = require('koa-router')();
+const HydraServiceFactory = require('./../index').HydraServiceFactory
+const router = require('koa-router')()
 
 const factory = new HydraServiceFactory({
   hydra: {
@@ -17,11 +17,11 @@ const factory = new HydraServiceFactory({
       db: 15
     }
   }
-});
+})
 
 factory.init().then(() =>
   factory.getService((service) => {
-    router.get('/v1/welcome', async ctx => (ctx.body = 'Hello World!'));
-    service.use(router.routes());
+    router.get('/v1/welcome', async ctx => (ctx.body = 'Hello World!'))
+    service.use(router.routes())
   })
-);
+)

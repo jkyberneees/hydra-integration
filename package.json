@@ -36,24 +36,18 @@
     "express-list-endpoints": "3.0.0"
   },
   "devDependencies": {
-    "body-parser": "^1.18.2",
+    "body-parser": "^1.19.0",
     "chai": "^4.2.0",
-    "eslint": "^4.7.0",
-    "eslint-config-airbnb": "^15.1.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-node": "^5.1.1",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-react": "^7.3.0",
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "hapi": "^16",
-    "hydra": "^1.7.0",
-    "koa": "^2.6.2",
+    "hydra": "^1.7.1",
+    "koa": "^2.7.0",
     "koa-router": "^7.4.0",
     "mocha": "^5.2.0",
     "restify": "6.0.0",
     "restify-plugins": "1.6.0",
-    "supertest": "^3.3.0"
+    "standard": "^12.0.1",
+    "supertest": "^3.4.2"
   },
   "files": [
     "LICENSE.md",

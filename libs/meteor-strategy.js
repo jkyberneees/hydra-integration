@@ -9,6 +9,6 @@ module.exports = factory =>
   // - Simple Router
   // - Flow Router
   ({
-    build: config => Promise.reject('Unsupported operation!'),
-    sync: async service => Promise.reject('Unsupported operation!')
-  });
+    build: config => Promise.reject(new Error('Unsupported operation!')),
+    sync: async service => Promise.reject(new Error('Unsupported operation!'))
+  })

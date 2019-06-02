@@ -1,6 +1,6 @@
 /* eslint import/no-extraneous-dependencies:0, no-unused-vars:0 */
 
-const HydraServiceFactory = require('./../index').HydraServiceFactory;
+const HydraServiceFactory = require('./../index').HydraServiceFactory
 
 const factory = new HydraServiceFactory({
   hydra: {
@@ -16,7 +16,7 @@ const factory = new HydraServiceFactory({
       db: 15
     }
   }
-});
+})
 
 factory.on('hydra:registered', async () => {
   const service = await factory.getService({
@@ -26,15 +26,15 @@ factory.on('hydra:registered', async () => {
         method: 'GET',
         path: '/v1/welcome',
         handler: (request, reply) => reply('Hello World!')
-      });
+      })
 
       service.route({
         method: 'GET',
         path: '/echo/{text}',
         handler: (request, reply) => reply(request.params.text)
-      });
+      })
     }
-  });
-});
+  })
+})
 
-factory.init();
+factory.init()

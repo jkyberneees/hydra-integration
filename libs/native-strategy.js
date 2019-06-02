@@ -8,14 +8,14 @@ module.exports = factory => ({
     new Promise(async (resolve, reject) => {
       try {
         if (config.bootstrap) {
-          await config.bootstrap(factory.getHydra(), factory);
+          await config.bootstrap(factory.getHydra(), factory)
         }
 
-        resolve(factory.getHydra());
+        resolve(factory.getHydra())
       } catch (err) {
-        reject(err);
+        reject(err)
       }
     }),
 
   sync: async () => Promise.resolve(factory.getHydra())
-});
+})

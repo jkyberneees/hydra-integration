@@ -1,4 +1,4 @@
-const HydraServiceFactory = require('./../index').HydraServiceFactory;
+const HydraServiceFactory = require('./../index').HydraServiceFactory
 
 const factory = new HydraServiceFactory({
   hydra: {
@@ -14,13 +14,13 @@ const factory = new HydraServiceFactory({
       db: 15
     }
   }
-});
+})
 
 factory.init().then(() =>
   factory.getService((service) => {
     service.get('/v1/welcome', (req, res, next) => {
-      res.send(200, 'Hello World!');
-      return next();
-    });
+      res.send(200, 'Hello World!')
+      return next()
+    })
   })
-);
+)

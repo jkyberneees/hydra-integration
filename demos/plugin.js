@@ -1,13 +1,13 @@
 /* eslint import/no-extraneous-dependencies:0, no-unused-vars:0, no-console:0 */
 
-const HydraIntegrationPlugin = require('./../index').HydraIntegrationPlugin;
-const express = require('express');
+const HydraIntegrationPlugin = require('./../index').HydraIntegrationPlugin
+const express = require('express')
 
-const router = express.Router();
+const router = express.Router()
 
-const hydra = require('hydra');
+const hydra = require('hydra')
 
-hydra.use(new HydraIntegrationPlugin());
+hydra.use(new HydraIntegrationPlugin())
 
 hydra
   .init({
@@ -28,8 +28,8 @@ hydra
   .then(() => hydra.registerService())
   .then(async () => {
     const service = await hydra.integration.getService(() => {
-      router.get('/welcome', (req, res) => res.send('Hello World!'));
-      service.use('/v1', router);
-    });
+      router.get('/welcome', (req, res) => res.send('Hello World!'))
+      service.use('/v1', router)
+    })
   })
-  .catch(console.log);
+  .catch(console.log)

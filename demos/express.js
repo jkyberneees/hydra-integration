@@ -1,9 +1,9 @@
 /* eslint import/no-extraneous-dependencies:0, no-unused-vars:0 */
 
-const HydraServiceFactory = require('./../index').HydraServiceFactory;
-const express = require('express');
+const HydraServiceFactory = require('./../index').HydraServiceFactory
+const express = require('express')
 
-const router = express.Router();
+const router = express.Router()
 
 const factory = new HydraServiceFactory({
   hydra: {
@@ -19,11 +19,11 @@ const factory = new HydraServiceFactory({
       db: 15
     }
   }
-});
+})
 
 factory.init().then(() =>
   factory.getService((service) => {
-    router.get('/welcome', (req, res) => res.send('Hello World!'));
-    service.use('/v1', router);
+    router.get('/welcome', (req, res) => res.send('Hello World!'))
+    service.use('/v1', router)
   })
-);
+)

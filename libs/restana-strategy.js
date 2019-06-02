@@ -7,11 +7,11 @@ module.exports = factory => ({
   build: config =>
     new Promise(async (resolve, reject) => {
       try {
-        const service = require('restana')(config.restana || {});
-        service.get('/_health', (req, res) => res.send(200));
+        const service = require('restana')(config.restana || {})
+        service.get('/_health', (req, res) => res.send(200))
 
         if (config.bootstrap) {
-          await config.bootstrap(service, factory);
+          await config.bootstrap(service, factory)
         }
 
         service
@@ -20,17 +20,17 @@ module.exports = factory => ({
             config.server.bindToServiceIP ? config.hydra.serviceIP : null
           )
           .then(() => resolve(service))
-          .catch(reject);
+          .catch(reject)
 
-        factory.on('hydra:beforeShutdown', () => service.close());
+        factory.on('hydra:beforeShutdown', () => service.close())
       } catch (err) {
-        reject(err);
+        reject(err)
       }
     }),
   sync: async (service, config) => {
-    const hydra = factory.getHydra();
-    await hydra.registerRoutes(service.routes());
+    const hydra = factory.getHydra()
+    await hydra.registerRoutes(service.routes())
 
-    return hydra;
+    return hydra
   }
-});
+})
