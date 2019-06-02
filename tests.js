@@ -280,4 +280,48 @@ describe('Hydra Service Factory', () => {
 
     return hydra.integration.shutdown()
   })
+
+  it('Hydra plugin + restana', async () => {
+    const hydra = require('hydra')
+    hydra.use(new HydraIntegrationPlugin())
+    await hydra.init({
+      hydra: {
+        serviceName: 'restana-service-test',
+        serviceDescription: 'Basic restana service on top of Hydra',
+        serviceIP: '127.0.0.1',
+        servicePort: 3000,
+        serviceType: 'restana',
+        serviceVersion: '1.0.0',
+        redis: {
+          host: '127.0.0.1',
+          port: 6379,
+          db: 15
+        }
+      }
+    })
+    await hydra.registerService()
+
+    const service = await hydra.integration.getService((service) => {
+      service.get('/v1/welcome', (req, res) => res.send('Hello World!'))
+    })
+
+    await request(service.getServer())
+      .get('/_health')
+      .expect(200)
+    await request(service.getServer())
+      .get('/v1/welcome')
+      .expect(200)
+      .then(response => expect(response.text).to.equal('Hello World!'))
+
+    const message = hydra.createUMFMessage({
+      to: 'restana-service-test:[GET]/v1/welcome',
+      from: 'website:backend',
+      body: {}
+    })
+    await hydra
+      .makeAPIRequest(message)
+      .then(response => expect(response.payLoad.toString()).to.equal('Hello World!'))
+
+    return hydra.integration.shutdown()
+  })
 })

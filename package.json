@@ -4,7 +4,7 @@
   "description": "Minimalist 'hydra integration' module, intended for Node.js web frameworks integration.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests"
+    "test": "nyc mocha tests"
   },
   "repository": {
     "type": "git",
@@ -44,6 +44,8 @@
     "koa": "^2.7.0",
     "koa-router": "^7.4.0",
     "mocha": "^5.2.0",
+    "nyc": "^14.1.1",
+    "restana": "^3.1.0",
     "restify": "6.0.0",
     "restify-plugins": "1.6.0",
     "standard": "^12.0.1",
