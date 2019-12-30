@@ -103,6 +103,7 @@ class HydraIntegrationPlugin extends HydraPlugin {
   configChanged (opts = {}) {
     this.config = Object.assign(this.config, opts)
   }
+
   async onServiceReady () {
     this.factory = new HydraServiceFactory(this.config)
     this.hydra.integration = this.factory

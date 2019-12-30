@@ -1,3 +1,4 @@
+/* eslint-disable no-async-promise-executor */
 /**
  * Hydra Integration Strategy for Koa Framework
  * (http://koajs.com/)

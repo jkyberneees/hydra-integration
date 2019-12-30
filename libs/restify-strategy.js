@@ -1,3 +1,4 @@
+/* eslint-disable no-async-promise-executor */
 /**
  * Hydra Integration Strategy for Restify Framework
  * (https://github.com/restify/node-restify)

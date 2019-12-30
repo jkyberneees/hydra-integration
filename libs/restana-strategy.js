@@ -1,3 +1,4 @@
+/* eslint-disable no-async-promise-executor */
 /**
  * Hydra Integration Strategy for restana framework
  * (https://github.com/jkyberneees/ana)
